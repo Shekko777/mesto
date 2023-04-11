@@ -1,0 +1,8 @@
+/* Подключение сторонних файлов */
+@import url(../vender/normalize.css);
+@import url(../vender/font.css);
+
+/* Глобальные стили */
+@import url(../blocks/root/root.css);
+@import url(../blocks/body/body.css);
+@import url(../blocks/container/container.css);
