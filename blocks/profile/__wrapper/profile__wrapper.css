@@ -10,6 +10,7 @@
   .profile__wrapper {
     flex-direction: column;
     justify-content: center;
-    gap: 36px;
+    gap: 29px;
+    padding-bottom: 36px;
   }
 }

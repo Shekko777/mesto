@@ -20,3 +20,61 @@
 @import url(../blocks/profile/__description/profile__description.css);
 @import url(../blocks/profile/__edit-btn/profile__edit-btn.css);
 @import url(../blocks/profile/__add-btn/profile__add-btn.css);
+
+/* elements */
+.elements__list {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 282px));
+  gap: 20px 17px;
+  justify-content: center;
+}
+
+.elements__item {
+  background-color: #fff;
+  border-radius: 10px;
+}
+
+.elements__img {
+  width: 100%;
+  height: 282px;
+  border-radius: 10px 10px 0 0;
+}
+
+.elements__info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 21px 20px 23px;
+}
+
+.elements__title {
+  margin: 0;
+  font-size: 24px;
+  max-width: 190px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.elements__like {
+  background-color: transparent;
+  border: none;
+  background-image: url("../images/elements/like.svg");
+  background-repeat: no-repeat;
+  background-position: center;
+  width: 22px;
+  height: 19px;
+  transition: opacity 0.2s;
+}
+
+.elements__like:hover {
+  opacity: 0.5;
+  cursor: pointer;
+}
+
+.elements__like_active {
+  background-image: url("../images/elements/like_active.svg");
+}
