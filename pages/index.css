@@ -22,59 +22,14 @@
 @import url(../blocks/profile/__add-btn/profile__add-btn.css);
 
 /* elements */
-.elements__list {
-  padding: 0;
-  margin: 0;
-  list-style: none;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(150px, 282px));
-  gap: 20px 17px;
-  justify-content: center;
-}
+@import url(../blocks/elements/__list/elements__list.css);
+@import url(../blocks/elements/__item/elements__item.css);
+@import url(../blocks/elements/__img/elements__img.css);
+@import url(../blocks/elements/__info/elements__info.css);
+@import url(../blocks/elements/__title/elements__title.css);
+@import url(../blocks/elements/__like/elements__like.css);
+@import url(../blocks/elements/__like/_active/elements__like_active.css);
 
-.elements__item {
-  background-color: #fff;
-  border-radius: 10px;
-}
-
-.elements__img {
-  width: 100%;
-  height: 282px;
-  border-radius: 10px 10px 0 0;
-}
-
-.elements__info {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 21px 20px 23px;
-}
-
-.elements__title {
-  margin: 0;
-  font-size: 24px;
-  max-width: 190px;
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-}
-
-.elements__like {
-  background-color: transparent;
-  border: none;
-  background-image: url("../images/elements/like.svg");
-  background-repeat: no-repeat;
-  background-position: center;
-  width: 22px;
-  height: 19px;
-  transition: opacity 0.2s;
-}
-
-.elements__like:hover {
-  opacity: 0.5;
-  cursor: pointer;
-}
-
-.elements__like_active {
-  background-image: url("../images/elements/like_active.svg");
-}
+/* footer */
+@import url(../blocks/footer/footer.css);
+@import url(../blocks/footer/__copy/footer__copy.css);
