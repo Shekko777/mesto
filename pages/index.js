@@ -9,3 +9,5 @@ for (like of likeBtn) {
     likeBtn.classList.toggle("elements__like_active");
   });
 }
+
+// Изменение профиля
