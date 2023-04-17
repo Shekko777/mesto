@@ -4,10 +4,10 @@
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="author" content="Иван Першин">
     <meta name="keywords" content="Места России, Mesto, Место">
     <meta name="description" content="Удивительные места России в картинках.">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./pages/index.css">
     <link rel="icon" href="./images/elements/like_active.svg">
     <title>Mesto</title>
@@ -46,42 +46,42 @@
             <div class="container">
                 <ul class="elements__list">
                     <li class="elements__item">
-                        <img class="elements__img" src="./images/elements/1.jpg" alt="Картинка">
+                        <img class="elements__img" src="./images/elements/1.jpg" alt="Заполняется из JS">
                         <div class="elements__info">
                             <h2 class="elements__title">Карачаевск</h2>
                             <button class="elements__like"></button>
                         </div>
                     </li>
                     <li class="elements__item">
-                        <img class="elements__img" src="./images/elements/2.jpg" alt="Картинка">
+                        <img class="elements__img" src="./images/elements/2.jpg" alt="Заполняется из JS">
                         <div class="elements__info">
                             <h2 class="elements__title">Гора Эльбрус</h2>
                             <button class="elements__like"></button>
                         </div>
                     </li>
                     <li class="elements__item">
-                        <img class="elements__img" src="./images/elements/3.jpg" alt="Картинка">
+                        <img class="elements__img" src="./images/elements/3.jpg" alt="Заполняется из JS">
                         <div class="elements__info">
                             <h2 class="elements__title">Домбай</h2>
                             <button class="elements__like"></button>
                         </div>
                     </li>
                     <li class="elements__item">
-                        <img class="elements__img" src="./images/elements/2.jpg" alt="Картинка">
+                        <img class="elements__img" src="./images/elements/2.jpg" alt="Заполняется из JS">
                         <div class="elements__info">
                             <h2 class="elements__title">Гора Эльбрус</h2>
                             <button class="elements__like"></button>
                         </div>
                     </li>
                     <li class="elements__item">
-                        <img class="elements__img" src="./images/elements/3.jpg" alt="Картинка">
+                        <img class="elements__img" src="./images/elements/3.jpg" alt="Заполняется из JS">
                         <div class="elements__info">
                             <h2 class="elements__title">Домбай</h2>
                             <button class="elements__like"></button>
                         </div>
                     </li>
                     <li class="elements__item">
-                        <img class="elements__img" src="./images/elements/1.jpg" alt="Картинка">
+                        <img class="elements__img" src="./images/elements/1.jpg" alt="Заполняется из JS">
                         <div class="elements__info">
                             <h2 class="elements__title">Карачаево-Черкеск</h2>
                             <button class="elements__like"></button>
@@ -100,14 +100,15 @@
     </footer>
 
     <!-- popup -->
-    <div class="popup">
+    <div class="popup ">
         <div class="popup__container">
             <button class="popup__close"></button>
             <form class="popup__form" action="#">
                 <fieldset class="popup__fieldset">
                     <label class="popup__label">Редактировать профиль</label>
-                    <input class="popup__input popup__input-title" value="Жак Ив Кусто" type="text">
-                    <input class="popup__input popup__input-subtitle" value="Исследователь океана" type="text">
+                    <input class="popup__input popup__input-title" value="" type="text" placeholder="Введите ваше имя">
+                    <input class="popup__input popup__input-subtitle" value="" type="text"
+                        placeholder="Напишите о себе">
                 </fieldset>
                 <button class="popup__save-btn">Сохранить</button>
             </form>
