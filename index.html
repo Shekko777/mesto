@@ -24,18 +24,16 @@
 
         <!-- profile -->
         <section class="profile">
-            <div class="container">
-                <div class="profile__wrapper">
-                    <div class="profile__info">
-                        <img class="profile__avatar" src="./images/profile/avatar.jpg" alt="Аватар профиля">
-                        <div class="profile__description">
-                            <h1 class="profile__title">Жак-Ив Кусто</h1>
-                            <p class="profile__subtitle">Исследователь океана</p>
-                            <button class="profile__edit-btn"></button>
-                        </div>
+            <div class="profile__wrapper">
+                <div class="profile__info">
+                    <img class="profile__avatar" src="./images/profile/avatar.jpg" alt="Аватар профиля">
+                    <div class="profile__description">
+                        <h1 class="profile__title">Жак-Ив Кусто</h1>
+                        <p class="profile__subtitle">Исследователь океана</p>
+                        <button class="profile__edit-btn"></button>
                     </div>
-                    <button class="profile__add-btn"></button>
                 </div>
+                <button class="profile__add-btn"></button>
             </div>
 
 
@@ -43,60 +41,56 @@
 
         <!-- elements -->
         <section class="elements" aria-label="Фотокарточки">
-            <div class="container">
-                <ul class="elements__list">
-                    <li class="elements__item">
-                        <img class="elements__img" src="./images/elements/1.jpg" alt="Заполняется из JS">
-                        <div class="elements__info">
-                            <h2 class="elements__title">Карачаевск</h2>
-                            <button class="elements__like"></button>
-                        </div>
-                    </li>
-                    <li class="elements__item">
-                        <img class="elements__img" src="./images/elements/2.jpg" alt="Заполняется из JS">
-                        <div class="elements__info">
-                            <h2 class="elements__title">Гора Эльбрус</h2>
-                            <button class="elements__like"></button>
-                        </div>
-                    </li>
-                    <li class="elements__item">
-                        <img class="elements__img" src="./images/elements/3.jpg" alt="Заполняется из JS">
-                        <div class="elements__info">
-                            <h2 class="elements__title">Домбай</h2>
-                            <button class="elements__like"></button>
-                        </div>
-                    </li>
-                    <li class="elements__item">
-                        <img class="elements__img" src="./images/elements/2.jpg" alt="Заполняется из JS">
-                        <div class="elements__info">
-                            <h2 class="elements__title">Гора Эльбрус</h2>
-                            <button class="elements__like"></button>
-                        </div>
-                    </li>
-                    <li class="elements__item">
-                        <img class="elements__img" src="./images/elements/3.jpg" alt="Заполняется из JS">
-                        <div class="elements__info">
-                            <h2 class="elements__title">Домбай</h2>
-                            <button class="elements__like"></button>
-                        </div>
-                    </li>
-                    <li class="elements__item">
-                        <img class="elements__img" src="./images/elements/1.jpg" alt="Заполняется из JS">
-                        <div class="elements__info">
-                            <h2 class="elements__title">Карачаево-Черкеск</h2>
-                            <button class="elements__like"></button>
-                        </div>
-                    </li>
-                </ul>
-            </div>
+            <ul class="elements__list">
+                <li class="elements__item">
+                    <img class="elements__img" src="./images/elements/1.jpg" alt="Заполняется из JS">
+                    <div class="elements__info">
+                        <h2 class="elements__title">Карачаевск</h2>
+                        <button class="elements__like"></button>
+                    </div>
+                </li>
+                <li class="elements__item">
+                    <img class="elements__img" src="./images/elements/2.jpg" alt="Заполняется из JS">
+                    <div class="elements__info">
+                        <h2 class="elements__title">Гора Эльбрус</h2>
+                        <button class="elements__like"></button>
+                    </div>
+                </li>
+                <li class="elements__item">
+                    <img class="elements__img" src="./images/elements/3.jpg" alt="Заполняется из JS">
+                    <div class="elements__info">
+                        <h2 class="elements__title">Домбай</h2>
+                        <button class="elements__like"></button>
+                    </div>
+                </li>
+                <li class="elements__item">
+                    <img class="elements__img" src="./images/elements/2.jpg" alt="Заполняется из JS">
+                    <div class="elements__info">
+                        <h2 class="elements__title">Гора Эльбрус</h2>
+                        <button class="elements__like"></button>
+                    </div>
+                </li>
+                <li class="elements__item">
+                    <img class="elements__img" src="./images/elements/3.jpg" alt="Заполняется из JS">
+                    <div class="elements__info">
+                        <h2 class="elements__title">Домбай</h2>
+                        <button class="elements__like"></button>
+                    </div>
+                </li>
+                <li class="elements__item">
+                    <img class="elements__img" src="./images/elements/1.jpg" alt="Заполняется из JS">
+                    <div class="elements__info">
+                        <h2 class="elements__title">Карачаево-Черкеск</h2>
+                        <button class="elements__like"></button>
+                    </div>
+                </li>
+            </ul>
         </section>
     </main>
 
     <!-- FOOTER -->
     <footer class="footer">
-        <div class="container">
-            <p class="footer__copy">© 2020 Mesto Russia</p>
-        </div>
+        <p class="footer__copy">© 2020 Mesto Russia</p>
     </footer>
 
     <!-- popup -->
@@ -106,8 +100,9 @@
             <form class="popup__form" action="#">
                 <fieldset class="popup__fieldset">
                     <label class="popup__label">Редактировать профиль</label>
-                    <input class="popup__input popup__input-title" value="" type="text" placeholder="Введите ваше имя">
-                    <input class="popup__input popup__input-subtitle" value="" type="text"
+                    <input class="popup__input popup__input_place_title" value="" type="text"
+                        placeholder="Введите ваше имя">
+                    <input class="popup__input popup__input_place_subtitle" value="" type="text"
                         placeholder="Напишите о себе">
                 </fieldset>
                 <button class="popup__save-btn">Сохранить</button>
