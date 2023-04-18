@@ -18,7 +18,7 @@ function handleFormSubmit(evt) {
   popup.classList.remove("popup_opened"); //Закроет редактирование при сохранении
 }
 
-formSaveSubmit.addEventListener("click", handleFormSubmit);
+formSaveSubmit.addEventListener("submit", handleFormSubmit);
 
 // Открытие профиля
 function openPopup() {
