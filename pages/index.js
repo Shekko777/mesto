@@ -1,7 +1,6 @@
 const popup = document.querySelector(".popup"); //Сам popup
-const likeButtons = document.querySelectorAll(".elements__like"); //Сердечки на карточках
+const formProfile = document.querySelector(".popup__form"); //Форма в popup
 const formInputs = document.querySelectorAll(".popup__input"); //Инпуты формы
-const formSaveSubmit = document.querySelector(".popup__save-btn"); //Кнопка сохранения формы
 const profileName = document.querySelector(".profile__title"); //Имя в профиле
 const profileJob = document.querySelector(".profile__subtitle"); //Профессия в профиле
 const profileEditor = document.querySelector(".profile__edit-btn"); //Кнопка изменения профиля
@@ -18,7 +17,7 @@ function handleFormSubmit(evt) {
   popup.classList.remove("popup_opened"); //Закроет редактирование при сохранении
 }
 
-formSaveSubmit.addEventListener("submit", handleFormSubmit);
+formProfile.addEventListener("submit", handleFormSubmit);
 
 // Открытие профиля
 function openPopup() {
@@ -26,6 +25,8 @@ function openPopup() {
   inputValueName.value = profileName.textContent;
   inputValueJob.value = profileJob.textContent;
 }
+
+//"Плитка шоколада" для буста skill's
 
 profileEditor.addEventListener("click", openPopup);
 
