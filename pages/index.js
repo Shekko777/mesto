@@ -1,17 +1,24 @@
-const formProfile = document.querySelector(".popup__form"); //Форма в popup
-const formInputs = document.querySelectorAll(".popup__input"); //Инпуты формы
-const profileName = document.querySelector(".profile__title"); //Имя в профиле
-const profileJob = document.querySelector(".profile__subtitle"); //Профессия в профиле
 const images = document.querySelectorAll(".elements__img"); //Картинки
+const templateCards = document.querySelector(".template-cards").content; // Template для клонирования содержимого
+const listCards = document.querySelector(".elements__list"); // Список карточек
+
+// Popup изменения профиля
 const inputValueName = document.querySelector(".popup__input_place_title"); //Имя профиля
 const inputValueJob = document.querySelector(".popup__input_place_subtitle"); //Профессия
-const listCards = document.querySelector(".elements__list"); // Список карточек
-const templateCards = document.querySelector(".template-cards").content; // Template для клонирования содержимого
+const profileName = document.querySelector(".profile__title"); //Имя в профиле
+const profileJob = document.querySelector(".profile__subtitle"); //Профессия в профиле
+const formProfile = document.querySelector(".popup__form_type_edit"); //Форма в popup-edit
 const popupEdit = document.querySelector(".popup_type_edit"); // Popup изменения профиля
-const popupAdd = document.querySelector(".popup_type_add"); // Popup добавления новой карточки
 const profileEditor = document.querySelector(".profile__edit-btn"); //Кнопка изменения профиля
-const profileAdd = document.querySelector(".profile__add-btn"); // Кнопка добавления карточки
 
+// Popup добавления карточки
+const popupAdd = document.querySelector(".popup_type_add"); // Popup добавления новой карточки
+const profileAdd = document.querySelector(".profile__add-btn"); // Кнопка добавления карточки
+const popupAddName = document.querySelector(".popup__input_add_name"); // Инпут имени карточки
+const popupAddLink = document.querySelector(".popup__input_add_link"); // Инпут ссылки карточки
+const popupAddForm = document.querySelector(".popup__form_type_add"); // Форма добавления карточки
+
+// Список карточек "из коробки"
 const initialCards = [
   {
     name: "Архыз",
@@ -40,7 +47,7 @@ const initialCards = [
 ]; // список карточек
 
 // Функция добавления карточки
-function addNewCards(image, title) {
+function addCardsHandle(image, title) {
   const liCards = templateCards
     .querySelector(".elements__item")
     .cloneNode(true);
@@ -51,7 +58,7 @@ function addNewCards(image, title) {
 }
 
 initialCards.forEach((card) => {
-  addNewCards(card.link, card.name);
+  addCardsHandle(card.link, card.name);
 });
 
 // Функция изменения профиля
@@ -70,6 +77,9 @@ function openPopup(popupName) {
   inputValueName.value = profileName.textContent;
   inputValueJob.value = profileJob.textContent;
 
+  popupAddName.value = "";
+  popupAddLink.value = "";
+
   // Закрытие открытого popup
   popupName
     .closest(".popup")
@@ -81,3 +91,20 @@ function openPopup(popupName) {
 
 profileEditor.addEventListener("click", () => openPopup(popupEdit)); // Открытие редактирование профиля
 profileAdd.addEventListener("click", () => openPopup(popupAdd)); // Открытие добавления карточки
+
+// Функция добавления карточки
+function addNewsCards(evt) {
+  evt.preventDefault();
+  const liCards = templateCards
+    .querySelector(".elements__item")
+    .cloneNode(true);
+  liCards.querySelector(".elements__title").textContent = popupAddName.value;
+  liCards.querySelector(".elements__img").src = popupAddLink.value;
+  liCards.querySelector(
+    ".elements__img"
+  ).alt = `Фотокарточка ${popupAddName.value}`;
+  listCards.prepend(liCards);
+  popupAdd.classList.remove("popup_opened");
+}
+
+popupAddForm.addEventListener("submit", addNewsCards);

@@ -63,7 +63,7 @@
     <div class="popup popup_type_edit">
         <div class="popup__container">
             <button class="popup__close" type="button"></button>
-            <form class="popup__form" action="#">
+            <form class="popup__form popup__form_type_edit" action="#">
                 <fieldset class="popup__fieldset">
                     <label class="popup__label">Редактировать профиль</label>
                     <input class="popup__input popup__input_place_title" name="name" value="" type="text"
@@ -80,13 +80,13 @@
     <div class="popup popup_type_add">
         <div class="popup__container">
             <button class="popup__close" type="button"></button>
-            <form class="popup__form" action="#">
+            <form class="popup__form popup__form_type_add" action="#">
                 <fieldset class="popup__fieldset">
                     <label class="popup__label">Новое место</label>
-                    <input class="popup__input" name="name" value="" type="text" placeholder="Название"
-                        autocomplete="off">
-                    <input class="popup__input" name="job" value="" type="text" placeholder="Ссылка на картинку"
-                        autocomplete="off">
+                    <input class="popup__input popup__input_add_name" name="name" value="" type="text"
+                        placeholder="Название" autocomplete="off">
+                    <input class="popup__input popup__input_add_link" name="link" value="" type="text"
+                        placeholder="Ссылка на картинку" autocomplete="off">
                 </fieldset>
                 <button class="popup__save-btn popup__save-btn_type_add" type="submit">Создать</button>
             </form>
