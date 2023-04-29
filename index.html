@@ -41,50 +41,7 @@
 
         <!-- elements -->
         <section class="elements" aria-label="Фотокарточки">
-            <ul class="elements__list">
-                <li class="elements__item">
-                    <img class="elements__img" src="./images/elements/1.jpg" alt="Заполняется из JS">
-                    <div class="elements__info">
-                        <h2 class="elements__title">Карачаевск</h2>
-                        <button class="elements__like" type="button"></button>
-                    </div>
-                </li>
-                <li class="elements__item">
-                    <img class="elements__img" src="./images/elements/2.jpg" alt="Заполняется из JS">
-                    <div class="elements__info">
-                        <h2 class="elements__title">Гора Эльбрус</h2>
-                        <button class="elements__like" type="button"></button>
-                    </div>
-                </li>
-                <li class="elements__item">
-                    <img class="elements__img" src="./images/elements/3.jpg" alt="Заполняется из JS">
-                    <div class="elements__info">
-                        <h2 class="elements__title">Домбай</h2>
-                        <button class="elements__like" type="button"></button>
-                    </div>
-                </li>
-                <li class="elements__item">
-                    <img class="elements__img" src="./images/elements/2.jpg" alt="Заполняется из JS">
-                    <div class="elements__info">
-                        <h2 class="elements__title">Гора Эльбрус</h2>
-                        <button class="elements__like" type="button"></button>
-                    </div>
-                </li>
-                <li class="elements__item">
-                    <img class="elements__img" src="./images/elements/3.jpg" alt="Заполняется из JS">
-                    <div class="elements__info">
-                        <h2 class="elements__title">Домбай</h2>
-                        <button class="elements__like" type="button"></button>
-                    </div>
-                </li>
-                <li class="elements__item">
-                    <img class="elements__img" src="./images/elements/1.jpg" alt="Заполняется из JS">
-                    <div class="elements__info">
-                        <h2 class="elements__title">Карачаево-Черкеск</h2>
-                        <button class="elements__like" type="button"></button>
-                    </div>
-                </li>
-            </ul>
+            <ul class="elements__list"></ul>
         </section>
     </main>
 
@@ -93,8 +50,19 @@
         <p class="footer__copy">© 2020 Mesto Russia</p>
     </footer>
 
+    <!-- tamplate карточек -->
+    <template class="template-cards">
+        <li class="elements__item">
+            <img class="elements__img" src="" alt="Загружается из JS">
+            <div class="elements__info">
+                <h2 class="elements__title"></h2>
+                <button class="elements__like" type="button"></button>
+            </div>
+        </li>
+    </template>
+
     <!-- popup -->
-    <div class="popup ">
+    <div class="popup">
         <div class="popup__container">
             <button class="popup__close" type="button"></button>
             <form class="popup__form" action="#">
