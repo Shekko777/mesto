@@ -62,7 +62,6 @@ initialCards.forEach((card) => {
 });
 
 const likeButtons = document.querySelectorAll(".elements__like"); // Лайки на карточках (добавил сюда потому, что до выставления карточек, они не находятся)
-const deleteButtons = document.querySelectorAll(".elements__button-delete"); // Корзина для удаления карточек
 
 // Функция изменения профиля
 function handleFormSubmit(evt) {
@@ -95,6 +94,16 @@ function openPopup(popupName) {
 profileEditor.addEventListener("click", () => openPopup(popupEdit)); // Открытие редактирование профиля
 profileAdd.addEventListener("click", () => openPopup(popupAdd)); // Открытие добавления карточки
 
+// Удаление карточек
+function deleteCardsHandle() {
+  const deleteButtons = document.querySelectorAll(".elements__button-delete"); // Корзина для удаления карточек
+  deleteButtons.forEach((el) => {
+    el.addEventListener("click", () => {
+      el.closest(".elements__item").remove();
+    });
+  });
+}
+
 // Функция добавления карточки
 function addNewsCards(evt) {
   evt.preventDefault();
@@ -108,6 +117,8 @@ function addNewsCards(evt) {
   ).alt = `Фотокарточка ${popupAddName.value}`;
   listCards.prepend(liCards);
   popupAdd.classList.remove("popup_opened");
+
+  deleteCardsHandle();
 }
 
 popupAddForm.addEventListener("submit", addNewsCards);
@@ -119,9 +130,4 @@ likeButtons.forEach((el) => {
   );
 });
 
-// Удаление карточек
-deleteButtons.forEach((el) => {
-  el.addEventListener("click", () => {
-    el.closest(".elements__item").remove();
-  });
-});
+deleteCardsHandle();
