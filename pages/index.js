@@ -61,8 +61,6 @@ initialCards.forEach((card) => {
   addCardsHandle(card.link, card.name);
 });
 
-const likeButtons = document.querySelectorAll(".elements__like"); // Лайки на карточках (добавил сюда потому, что до выставления карточек, они не находятся)
-
 // Функция изменения профиля
 function handleFormSubmit(evt) {
   evt.preventDefault();
@@ -94,13 +92,23 @@ function openPopup(popupName) {
 profileEditor.addEventListener("click", () => openPopup(popupEdit)); // Открытие редактирование профиля
 profileAdd.addEventListener("click", () => openPopup(popupAdd)); // Открытие добавления карточки
 
-// Удаление карточек
+// Функция удаления карточек
 function deleteCardsHandle() {
   const deleteButtons = document.querySelectorAll(".elements__button-delete"); // Корзина для удаления карточек
   deleteButtons.forEach((el) => {
     el.addEventListener("click", () => {
       el.closest(".elements__item").remove();
     });
+  });
+}
+
+// Ставить лайки на карточки
+function likeCardsHandle() {
+  const likeButtons = document.querySelectorAll(".elements__like"); // Лайки на карточках
+  likeButtons.forEach((el) => {
+    el.addEventListener("click", () =>
+      el.classList.toggle("elements__like_active")
+    );
   });
 }
 
@@ -119,15 +127,10 @@ function addNewsCards(evt) {
   popupAdd.classList.remove("popup_opened");
 
   deleteCardsHandle();
+  likeCardsHandle();
 }
 
 popupAddForm.addEventListener("submit", addNewsCards);
 
-// Ставить лайки на карточки
-likeButtons.forEach((el) => {
-  el.addEventListener("click", () =>
-    el.classList.toggle("elements__like_active")
-  );
-});
-
 deleteCardsHandle();
+likeCardsHandle();
