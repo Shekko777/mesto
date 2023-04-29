@@ -1,3 +1,31 @@
+// Список карточек "из коробки"
+const initialCards = [
+  {
+    name: "Архыз",
+    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg",
+  },
+  {
+    name: "Непойму где",
+    link: "https://images.unsplash.com/photo-1682258688582-f6862ab34261?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw1fHx8ZW58MHx8fHw%3D&auto=format&fit=crop&w=500&q=60",
+  },
+  {
+    name: "Иваново",
+    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg",
+  },
+  {
+    name: "Камчатка",
+    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg",
+  },
+  {
+    name: "Холмогорский район",
+    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg",
+  },
+  {
+    name: "Байкал",
+    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg",
+  },
+];
+
 const images = document.querySelectorAll(".elements__img"); //Картинки
 const templateCards = document.querySelector(".template-cards").content; // Template для клонирования содержимого
 const listCards = document.querySelector(".elements__list"); // Список карточек
@@ -18,34 +46,6 @@ const popupAddName = document.querySelector(".popup__input_add_name"); // Инп
 const popupAddLink = document.querySelector(".popup__input_add_link"); // Инпут ссылки карточки
 const popupAddForm = document.querySelector(".popup__form_type_add"); // Форма добавления карточки
 
-// Список карточек "из коробки"
-const initialCards = [
-  {
-    name: "Архыз",
-    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg",
-  },
-  {
-    name: "Челябинская область",
-    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg",
-  },
-  {
-    name: "Иваново",
-    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg",
-  },
-  {
-    name: "Камчатка",
-    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg",
-  },
-  {
-    name: "Холмогорский район",
-    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg",
-  },
-  {
-    name: "Байкал",
-    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg",
-  },
-]; // список карточек
-
 // Функция добавления карточки
 function addCardsHandle(image, title) {
   const liCards = templateCards
@@ -60,6 +60,9 @@ function addCardsHandle(image, title) {
 initialCards.forEach((card) => {
   addCardsHandle(card.link, card.name);
 });
+
+const likeButtons = document.querySelectorAll(".elements__like"); // Лайки на карточках (добавил сюда потому, что до выставления карточек, они не находятся)
+const deleteButtons = document.querySelectorAll(".elements__button-delete"); // Корзина для удаления карточек
 
 // Функция изменения профиля
 function handleFormSubmit(evt) {
@@ -108,3 +111,17 @@ function addNewsCards(evt) {
 }
 
 popupAddForm.addEventListener("submit", addNewsCards);
+
+// Ставить лайки на карточки
+likeButtons.forEach((el) => {
+  el.addEventListener("click", () =>
+    el.classList.toggle("elements__like_active")
+  );
+});
+
+// Удаление карточек
+deleteButtons.forEach((el) => {
+  el.addEventListener("click", () => {
+    el.closest(".elements__item").remove();
+  });
+});
