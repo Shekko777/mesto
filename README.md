@@ -34,14 +34,34 @@ git clone https://github.com/Shekko777/mesto.git
 
 <img src="./images/README/4.jpg" height="500">
 
+5. **Возможность добавлять новые картинки**
+
+<img src="./images/README/5.jpg" height="500">
+
+6. **Открытие полномасштабного изображения**
+
+<img src="./images/README/6.jpg" height="500">
+
 ---
 
 ## Используемые технологии
 
+- **Массив обьектов для начального заполнения**
+
+```
+const element = () => {};
+```
+
+- **Клонирование template для создания новых карточек**
+
+```
+const template = document.querySelector('template').content.cloneNode(true);
+```
+
 - **Стрелочные функции для упрощения записи**
 
 ```
-let element = () => {};
+const arr = [{Object}, {Object}];
 ```
 
 - **Перебор массива элементов**
@@ -54,22 +74,7 @@ element.forEach((el) => {});
 
 ```
 function name() {
-    let element;
+    const element;
     return;
 }
-```
-
-- **Возможность закрывать редактирование профиля через ESC**
-
-```
-document.addEventListener("keydown", (evt) => {
-    if(evt.key === "Escape") {}
- });
-```
-
-- **Обращение к элементу массива через индекс не пропуская его**
-  **через forEach**
-
-```
-console.log(element[0].value);
 ```

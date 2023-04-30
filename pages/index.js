@@ -46,20 +46,46 @@ const popupAddName = document.querySelector(".popup__input_add_name"); // Инп
 const popupAddLink = document.querySelector(".popup__input_add_link"); // Инпут ссылки карточки
 const popupAddForm = document.querySelector(".popup__form_type_add"); // Форма добавления карточки
 
-// Функция добавления карточки
+// Функция добавления карточки из коробки
 function addCardsHandle(image, title) {
+  //Обьявил переменную в функции потому, что если определить за функцией, при добавлении карточки она не будет работать
   const liCards = templateCards
     .querySelector(".elements__item")
     .cloneNode(true);
-  liCards.querySelector(".elements__title").textContent = title;
-  liCards.querySelector(".elements__img").src = image;
-  liCards.querySelector(".elements__img").alt = `Фотокарточка ${title}`;
-  listCards.append(liCards);
+  const imgCards = liCards.querySelector(".elements__img");
+  const titleCards = liCards.querySelector(".elements__title");
+  imgCards.src = image;
+  imgCards.alt = `Фотокарточка ${title}`;
+  titleCards.textContent = title;
+  return liCards;
 }
 
 initialCards.forEach((card) => {
-  addCardsHandle(card.link, card.name);
+  listCards.append(addCardsHandle(card.link, card.name));
 });
+
+// Popup картинки
+const popupImage = document.querySelector(".popup-images");
+const imageCard = document.querySelector(".popup-images__img");
+const figcaptionCard = document.querySelector(".popup-images__figcaption");
+
+// Функция открытия картинки
+function openPopupCards() {
+  //Обьявил переменную в функции потому, что если определить за функцией, при добавлении карточки она не будет работать
+  const cardsImages = document.querySelectorAll(".elements__img");
+  cardsImages.forEach((el) => {
+    el.addEventListener("click", () => {
+      popupImage.classList.add("popup_opened");
+      imageCard.src = el.src;
+      imageCard.alt = `${el.alt} в полном масштабе`;
+      figcaptionCard.textContent = el
+        .closest(".elements__item")
+        .querySelector(".elements__title").textContent;
+    });
+  });
+}
+
+openPopupCards();
 
 // Функция изменения профиля
 function handleFormSubmit(evt) {
@@ -76,7 +102,6 @@ function openPopup(popupName) {
   popupName.classList.add("popup_opened");
   inputValueName.value = profileName.textContent;
   inputValueJob.value = profileJob.textContent;
-
   popupAddName.value = "";
   popupAddLink.value = "";
 
@@ -91,9 +116,13 @@ function openPopup(popupName) {
 
 profileEditor.addEventListener("click", () => openPopup(popupEdit)); // Открытие редактирование профиля
 profileAdd.addEventListener("click", () => openPopup(popupAdd)); // Открытие добавления карточки
+popupImage.querySelector(".popup__close").addEventListener("click", () => {
+  popupImage.classList.remove("popup_opened");
+});
 
 // Функция удаления карточек
 function deleteCardsHandle() {
+  //Обьявил переменную в функции потому, что если определить за функцией, при добавлении карточки она не будет работать
   const deleteButtons = document.querySelectorAll(".elements__button-delete"); // Корзина для удаления карточек
   deleteButtons.forEach((el) => {
     el.addEventListener("click", () => {
@@ -101,9 +130,11 @@ function deleteCardsHandle() {
     });
   });
 }
+deleteCardsHandle();
 
 // Ставить лайки на карточки
 function likeCardsHandle() {
+  //Обьявил переменную в функции потому, что если определить за функцией, при добавлении карточки она не будет работать
   const likeButtons = document.querySelectorAll(".elements__like"); // Лайки на карточках
   likeButtons.forEach((el) => {
     el.addEventListener("click", () =>
@@ -111,26 +142,18 @@ function likeCardsHandle() {
     );
   });
 }
+likeCardsHandle();
 
 // Функция добавления карточки
 function addNewsCards(evt) {
   evt.preventDefault();
-  const liCards = templateCards
-    .querySelector(".elements__item")
-    .cloneNode(true);
-  liCards.querySelector(".elements__title").textContent = popupAddName.value;
-  liCards.querySelector(".elements__img").src = popupAddLink.value;
-  liCards.querySelector(
-    ".elements__img"
-  ).alt = `Фотокарточка ${popupAddName.value}`;
-  listCards.prepend(liCards);
+  listCards.prepend(addCardsHandle(popupAddLink.value, popupAddName.value));
+
   popupAdd.classList.remove("popup_opened");
 
   deleteCardsHandle();
   likeCardsHandle();
+  openPopupCards();
 }
 
 popupAddForm.addEventListener("submit", addNewsCards);
-
-deleteCardsHandle();
-likeCardsHandle();
