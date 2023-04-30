@@ -1,6 +1,6 @@
 const images = document.querySelectorAll(".elements__img"); //Картинки
 const templateCards = document.querySelector(".template-cards").content; // Template для клонирования содержимого
-const listCard = document.querySelector(".elements__list"); // Список карточек
+const cardListContainer = document.querySelector(".elements__list"); // Список карточек
 
 // Popup изменения профиля
 const inputValueName = document.querySelector(".popup__input_place_title"); //Имя профиля
