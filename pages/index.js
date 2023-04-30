@@ -46,8 +46,7 @@ function openPopup(popupName) {
   popupName.classList.add("popup_opened");
   inputValueName.value = profileName.textContent;
   inputValueJob.value = profileJob.textContent;
-  popupAddName.value.reset();
-  popupAddLink.value.reset();
+  popupAddForm.reset();
 
   // Закрытие открытого popup
   popupName
