@@ -1,7 +1,8 @@
 const images = document.querySelectorAll(".elements__img"); //Картинки
 const templateCard = document.querySelector(".template-card").content; // Template для клонирования содержимого
 const cardListContainer = document.querySelector(".elements__list"); // Список карточек
-const buttonCloseElement = document.querySelectorAll(".popup__close");
+const buttonCloseElement = document.querySelectorAll(".popup__close"); // Крестик закрытия попапов
+const popupList = Array.from(document.querySelectorAll(".popup")); // Массив из попапов
 
 // Popup изменения профиля
 const inputValueName = document.querySelector(".popup__input_place_title"); //Имя профиля
@@ -20,6 +21,6 @@ const popupAddLink = document.querySelector(".popup__input_add_link"); // Инп
 const popupAddForm = document.querySelector(".popup__form_type_add"); // Форма добавления карточки
 
 // Popup картинки
-const popupImage = document.querySelector(".popup-images");
-const imageCard = document.querySelector(".popup-images__img");
-const figcaptionCard = document.querySelector(".popup-images__figcaption");
+const popupImage = document.querySelector(".popup-images"); // Попап картинок
+const imageCard = document.querySelector(".popup-images__img"); // Картинка
+const figcaptionCard = document.querySelector(".popup-images__figcaption"); // Описание картинки

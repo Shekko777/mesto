@@ -84,3 +84,18 @@ buttonCloseElement.forEach((button) => {
     closePopup(openedPopup);
   });
 });
+
+// Закрытие попапов при нажатии на оверлей
+popupList.forEach((popup) => {
+  popup.addEventListener("click", (evt) => {
+    if (evt.target === evt.currentTarget) {
+      closePopup(popup);
+    }
+  });
+
+  document.addEventListener("keydown", (evt) => {
+    if (evt.key === "Escape") {
+      closePopup(popup);
+    }
+  });
+});
