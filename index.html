@@ -64,13 +64,15 @@
     <div class="popup popup_type_edit">
         <div class="popup__container">
             <button class="popup__close" type="button"></button>
-            <form class="popup__form popup__form_type_edit" action="#">
+            <form class="popup__form popup__form_type_edit" action="#" novalidate>
                 <fieldset class="popup__fieldset">
                     <label class="popup__label">Редактировать профиль</label>
                     <input class="popup__input popup__input_place_title" name="name" value="" type="text"
-                        placeholder="Введите ваше имя" autocomplete="off">
+                        placeholder="Введите ваше имя" autocomplete="off" minlength="2" maxlength="20" required>
+                    <span class="popup__error" id="name-error">Вы пропустили это поле.</span>
                     <input class="popup__input popup__input_place_subtitle" name="job" value="" type="text"
-                        placeholder="Напишите о себе" autocomplete="off">
+                        placeholder="Напишите о себе" autocomplete="off" minlength="2" maxlength="200" required>
+                    <span class="popup__error" id="job-error">Вы пропустили это поле.</span>
                 </fieldset>
                 <button class="popup__save-btn popup__save-btn_type_edit" type="submit">Сохранить</button>
             </form>
@@ -81,13 +83,15 @@
     <div class="popup popup_type_add">
         <div class="popup__container">
             <button class="popup__close" type="button"></button>
-            <form class="popup__form popup__form_type_add" action="#">
+            <form class="popup__form popup__form_type_add" action="#" novalidate>
                 <fieldset class="popup__fieldset">
                     <label class="popup__label">Новое место</label>
                     <input class="popup__input popup__input_add_name" name="name" value="" type="text"
-                        placeholder="Название" autocomplete="off">
-                    <input class="popup__input popup__input_add_link" name="link" value="" type="text"
-                        placeholder="Ссылка на картинку" autocomplete="off">
+                        placeholder="Название" autocomplete="off" minlength="2" maxlength="30" required>
+                    <span class="popup__error" id="name-error">Вы пропустили это поле.</span>
+                    <input class="popup__input popup__input_add_link" name="link" value="" type="url"
+                        placeholder="Ссылка на картинку" autocomplete="off" required>
+                    <span class="popup__error" id="link-error">Введите адрес сайта.</span>
                 </fieldset>
                 <button class="popup__save-btn popup__save-btn_type_add" type="submit">Создать</button>
             </form>
@@ -106,6 +110,7 @@
     </div>
     <script src="./pages/constants.js"></script>
     <script src="./pages/cards.js"></script>
+    <script src="./pages/validate.js"></script>
     <script src="./pages/index.js"></script>
 </body>
 

@@ -1,3 +1,39 @@
+// Закрытие при нажатии на оверлей
+function closePopupTouchOverlay(evt) {
+  if (evt.target === evt.currentTarget) {
+    closePopup(evt.target);
+    evt.target.removeEventListener("click", closePopupTouchOverlay);
+  }
+}
+
+// Закрытие при нажатии на Escape
+function closePopupKeydownEscape(evt) {
+  const activePopup = document.querySelector(".popup_opened");
+  if (evt.key === "Escape") {
+    closePopup(activePopup);
+    document.removeEventListener("keydown", closePopupKeydownEscape);
+  }
+}
+
+// Функция открытие попапа
+function openPopup(popupElement) {
+  popupElement.classList.add("popup_opened");
+  popupElement.addEventListener("click", closePopupTouchOverlay);
+  document.addEventListener("keydown", closePopupKeydownEscape);
+}
+
+// Открыть попап с картинкой
+function setPopupImage(popupImage, imageCard, figcaptionCard, imgCard) {
+  popupImage.classList.add("popup_opened");
+  imageCard.src = imgCard.src;
+  imageCard.alt = `${imgCard.alt} в полном масштабе`;
+  figcaptionCard.textContent = imgCard
+    .closest(".elements__item")
+    .querySelector(".elements__title").textContent;
+  popupImage.addEventListener("click", closePopupTouchOverlay);
+  document.addEventListener("keydown", closePopupKeydownEscape);
+}
+
 // Функция добавления карточки
 function createCard(image, title) {
   const liCard = templateCard.querySelector(".elements__item").cloneNode(true);
@@ -15,12 +51,7 @@ function createCard(image, title) {
     deleteButton.closest(".elements__item").remove();
   });
   imgCard.addEventListener("click", () => {
-    popupImage.classList.add("popup_opened");
-    imageCard.src = imgCard.src;
-    imageCard.alt = `${imgCard.alt} в полном масштабе`;
-    figcaptionCard.textContent = imgCard
-      .closest(".elements__item")
-      .querySelector(".elements__title").textContent;
+    setPopupImage(popupImage, imageCard, figcaptionCard, imgCard);
   });
   return liCard;
 }
@@ -29,7 +60,7 @@ initialCards.forEach((card) => {
   cardListContainer.append(createCard(card.link, card.name));
 });
 
-// Функция закрытия формы при отправки
+// Функция закрытия формы
 function closePopup(popupElement) {
   popupElement.classList.remove("popup_opened");
 }
@@ -42,11 +73,6 @@ function handleProfileFormSubmit(evt) {
   closePopup(popupEdit);
 }
 formProfile.addEventListener("submit", handleProfileFormSubmit);
-
-// Функция открытие попапа
-function openPopup(popupElement) {
-  popupElement.classList.add("popup_opened");
-}
 
 // Функция открытия редактирования профиля
 function openProfilePopup(popupElement) {
@@ -63,10 +89,10 @@ function opepAddCardPopup(popupElement) {
 
 profileEditor.addEventListener("click", () => {
   openProfilePopup(popupEdit);
-}); // Открытие редактирование профиля
+});
 profileAdd.addEventListener("click", () => {
   opepAddCardPopup(popupAdd);
-}); // Открытие добавления карточки
+});
 
 // Добавления карточки
 function addNewsCard(evt) {
@@ -82,20 +108,5 @@ buttonCloseElement.forEach((button) => {
   button.addEventListener("click", () => {
     const openedPopup = button.closest(".popup_opened");
     closePopup(openedPopup);
-  });
-});
-
-// Закрытие попапов при нажатии на оверлей
-popupList.forEach((popup) => {
-  popup.addEventListener("click", (evt) => {
-    if (evt.target === evt.currentTarget) {
-      closePopup(popup);
-    }
-  });
-
-  document.addEventListener("keydown", (evt) => {
-    if (evt.key === "Escape") {
-      closePopup(popup);
-    }
   });
 });

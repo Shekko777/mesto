@@ -1,6 +1,5 @@
 .popup__save-btn {
-  border: none;
-  margin-top: 48px;
+  border: 1px solid transparent;
   width: 100%;
   font-size: 18px;
   line-height: 1.1;
