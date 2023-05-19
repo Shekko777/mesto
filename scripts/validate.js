@@ -1,5 +1,5 @@
 // Обьект формы
-const enableValidation = {
+const formObject = {
   formSelector: ".popup__form",
   inputSelector: ".popup__input",
   submitButtonSelector: ".popup__save-btn",
@@ -17,8 +17,8 @@ const showErrorMessage = (inputElement, errorSpan, config) => {
 
 // Удаление смс
 const hideErrorMessage = (inputElement, errorSpan, config) => {
-  errorSpan.classList.add(config.errorClass);
-  errorSpan.textContent = inputElement.validationMessage;
+  errorSpan.classList.remove(config.errorClass);
+  errorSpan.textContent = "";
   inputElement.classList.remove(config.inputErrorClass);
 };
 
@@ -39,6 +39,16 @@ const setButtonStatus = (buttonElement, status, config) => {
   !status
     ? blockedButton(buttonElement, config)
     : activeButton(buttonElement, config);
+};
+
+const resetError = (formElement, errorSpan, config, buttonElement) => {
+  const inputList = Array.from(
+    formElement.querySelectorAll(config.inputSelector)
+  );
+  inputList.forEach((inputElement) =>
+    hideErrorMessage(inputElement, errorSpan, config)
+  );
+  setButtonStatus(buttonElement, false, config);
 };
 
 // Проверка инпутов на валидность
@@ -71,11 +81,11 @@ const setEventListener = (formElement, config) => {
 };
 
 // Взять обьект формы и работать с ним
-const handleEnableValidation = (config) => {
+const enableValidation = (config) => {
   const formsList = Array.from(document.querySelectorAll(config.formSelector));
   formsList.forEach((formItem) => {
     setEventListener(formItem, config);
   });
 };
 
-handleEnableValidation(enableValidation);
+enableValidation(formObject);
