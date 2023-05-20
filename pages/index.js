@@ -23,14 +23,6 @@ function closePopupKeydownEscape(evt) {
 
 // Функция открытие попапа
 function openPopup(popupElement) {
-  const inputsList = popupElement.querySelectorAll(".popup__input");
-  inputsList.forEach((inputElement) => {
-    const errorSpan = popupElement.querySelector(`#${inputElement.name}-error`);
-    const submitButtonForm = popupElement.querySelector(
-      formObject.submitButtonSelector
-    );
-    resetError(popupElement, errorSpan, formObject, submitButtonForm);
-  });
   popupElement.classList.add("popup_opened");
   popupElement.addEventListener("click", closePopupTouchOverlay);
   document.addEventListener("keydown", closePopupKeydownEscape);
@@ -39,7 +31,6 @@ function openPopup(popupElement) {
 // Открыть попап с картинкой
 function setPopupImage(popupImage, imageCard, figcaptionCard, imgCard) {
   openPopup(popupImage);
-  popupImage.classList.add("popup_opened");
   imageCard.src = imgCard.src;
   imageCard.alt = `${imgCard.alt} в полном масштабе`;
   figcaptionCard.textContent = imgCard
@@ -82,8 +73,21 @@ function handleProfileFormSubmit(evt) {
 }
 formProfile.addEventListener("submit", handleProfileFormSubmit);
 
+// Сброс ошибок полей в попапах ниже
+function resetErrorsWhenOpenPopup(popupElement) {
+  const inputsList = popupElement.querySelectorAll(".popup__input");
+  inputsList.forEach((inputElement) => {
+    const errorSpan = popupElement.querySelector(`#${inputElement.name}-error`);
+    const submitButtonForm = popupElement.querySelector(
+      formObject.submitButtonSelector
+    );
+    resetError(popupElement, errorSpan, formObject, submitButtonForm);
+  });
+}
+
 // Функция открытия редактирования профиля
 function openProfilePopup(popupElement) {
+  resetErrorsWhenOpenPopup(popupElement);
   openPopup(popupElement);
   inputValueName.value = profileName.textContent;
   inputValueJob.value = profileJob.textContent;
@@ -91,6 +95,7 @@ function openProfilePopup(popupElement) {
 
 // Функция открытия попапа с добавлением карточки
 function opepAddCardPopup(popupElement) {
+  resetErrorsWhenOpenPopup(popupElement);
   openPopup(popupElement);
   popupAddForm.reset();
 }
@@ -104,11 +109,10 @@ profileAdd.addEventListener("click", () => {
 
 // Добавления карточки
 function addNewsCard(evt) {
-  const buttonElement = document.querySelector(".popup__save-btn_type_add");
   evt.preventDefault();
   cardListContainer.prepend(createCard(popupAddLink.value, popupAddName.value));
   closePopup(popupAdd);
-  blockedButton(buttonElement, formObject);
+  blockedButton(popupAddForm, formObject);
 }
 
 popupAddForm.addEventListener("submit", addNewsCard);
