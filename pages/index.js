@@ -112,7 +112,6 @@ function addNewsCard(evt) {
   evt.preventDefault();
   cardListContainer.prepend(createCard(popupAddLink.value, popupAddName.value));
   closePopup(popupAdd);
-  blockedButton(popupAddForm, formObject);
 }
 
 popupAddForm.addEventListener("submit", addNewsCard);
