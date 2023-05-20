@@ -8,7 +8,7 @@ function closePopup(popupElement) {
 function closePopupTouchOverlay(evt) {
   if (evt.target === evt.currentTarget) {
     closePopup(evt.target);
-    evt.target.removeEventListener("click", closePopupTouchOverlay);
+    evt.target.removeEventListener("mousedown", closePopupTouchOverlay);
   }
 }
 
@@ -24,7 +24,7 @@ function closePopupKeydownEscape(evt) {
 // Функция открытие попапа
 function openPopup(popupElement) {
   popupElement.classList.add("popup_opened");
-  popupElement.addEventListener("click", closePopupTouchOverlay);
+  popupElement.addEventListener("mousedown", closePopupTouchOverlay);
   document.addEventListener("keydown", closePopupKeydownEscape);
 }
 
