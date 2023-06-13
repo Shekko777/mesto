@@ -2,6 +2,7 @@ const images = document.querySelectorAll(".elements__img"); //Картинки
 const templateCard = document.querySelector(".template-card").content; // Template для клонирования содержимого
 const cardListContainer = document.querySelector(".elements__list"); // Список карточек
 const buttonCloseElement = document.querySelectorAll(".popup__close"); // Крестик закрытия попапов
+const popupForms = document.querySelector(".popup__form");
 
 // Popup изменения профиля
 const inputValueName = document.querySelector(".popup__input_place_title"); //Имя профиля
@@ -23,3 +24,13 @@ const popupAddForm = document.querySelector(".popup__form_type_add"); // Фор�
 const popupImage = document.querySelector(".popup-images"); // Попап картинок
 const imageCard = document.querySelector(".popup-images__img"); // Картинка
 const figcaptionCard = document.querySelector(".popup-images__figcaption"); // Описание картинки
+
+// Обьект формы
+const formObject = {
+  formSelector: ".popup__form",
+  inputSelector: ".popup__input",
+  submitButtonSelector: ".popup__save-btn",
+  inactiveButtonClass: "popup__save-btn_disabled",
+  inputErrorClass: "popup__input_type_error",
+  errorClass: "popup__error_visible",
+};

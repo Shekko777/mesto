@@ -1,7 +1,17 @@
+// Импортирование элементов из '../scripts/'
+import { Card } from "../scripts/Card.js";
+import { FormValidator } from "../scripts/FormValidator.js";
+
+// Создаём карточки из коробки
+initialCards.forEach((card) => {
+  const newCard = new Card(templateCard);
+  const cardElement = newCard.generateCard(card.name, card.link);
+  cardListContainer.append(cardElement);
+});
+
 // Функция закрытия формы
 function closePopup(popupElement) {
   popupElement.classList.remove("popup_opened");
-  document.removeEventListener("keydown", closePopupKeydownEscape);
 }
 
 // Закрытие при нажатии на оверлей
@@ -11,6 +21,8 @@ function closePopupTouchOverlay(evt) {
     evt.target.removeEventListener("mousedown", closePopupTouchOverlay);
   }
 }
+
+popupImage.addEventListener("click", closePopupTouchOverlay);
 
 // Закрытие при нажатии на Escape
 function closePopupKeydownEscape(evt) {
@@ -28,42 +40,6 @@ function openPopup(popupElement) {
   document.addEventListener("keydown", closePopupKeydownEscape);
 }
 
-// Открыть попап с картинкой
-function setPopupImage(popupImage, imageCard, figcaptionCard, imgCard) {
-  openPopup(popupImage);
-  imageCard.src = imgCard.src;
-  imageCard.alt = `${imgCard.alt} в полном масштабе`;
-  figcaptionCard.textContent = imgCard
-    .closest(".elements__item")
-    .querySelector(".elements__title").textContent;
-}
-
-// Функция добавления карточки
-function createCard(image, title) {
-  const liCard = templateCard.querySelector(".elements__item").cloneNode(true);
-  const imgCard = liCard.querySelector(".elements__img");
-  const titleCard = liCard.querySelector(".elements__title");
-  const likeButton = liCard.querySelector(".elements__like");
-  const deleteButton = liCard.querySelector(".elements__button-delete");
-  imgCard.src = image;
-  imgCard.alt = `Фотокарточка ${title}`;
-  titleCard.textContent = title;
-  likeButton.addEventListener("click", () => {
-    likeButton.classList.toggle("elements__like_active");
-  });
-  deleteButton.addEventListener("click", () => {
-    deleteButton.closest(".elements__item").remove();
-  });
-  imgCard.addEventListener("click", () => {
-    setPopupImage(popupImage, imageCard, figcaptionCard, imgCard);
-  });
-  return liCard;
-}
-
-initialCards.forEach((card) => {
-  cardListContainer.append(createCard(card.link, card.name));
-});
-
 // Функция изменения профиля
 function handleProfileFormSubmit(evt) {
   evt.preventDefault();
@@ -73,15 +49,22 @@ function handleProfileFormSubmit(evt) {
 }
 formProfile.addEventListener("submit", handleProfileFormSubmit);
 
+// Функция сброса ошибок
+function resetError(errorSpan, inputElement, buttonElement) {
+  errorSpan.classList.remove("popup__error_visible");
+  errorSpan.textContent = "";
+  inputElement.classList.remove("popup__input_type_error");
+  buttonElement.disabled = true;
+  buttonElement.classList.add("popup__save-btn_disabled");
+}
+
 // Сброс ошибок полей в попапах ниже
 function resetErrorsWhenOpenPopup(popupElement) {
   const inputsList = popupElement.querySelectorAll(".popup__input");
+  const buttonForm = popupElement.querySelector(".popup__save-btn");
   inputsList.forEach((inputElement) => {
     const errorSpan = popupElement.querySelector(`#${inputElement.name}-error`);
-    const submitButtonForm = popupElement.querySelector(
-      formObject.submitButtonSelector
-    );
-    resetError(popupElement, errorSpan, formObject, submitButtonForm);
+    resetError(errorSpan, inputElement, buttonForm);
   });
 }
 
@@ -110,7 +93,10 @@ profileAdd.addEventListener("click", () => {
 // Добавления карточки
 function addNewsCard(evt) {
   evt.preventDefault();
-  cardListContainer.prepend(createCard(popupAddLink.value, popupAddName.value));
+  const addNewCard = new Card(templateCard);
+  cardListContainer.prepend(
+    addNewCard.generateCard(popupAddName.value, popupAddLink.value)
+  );
   closePopup(popupAdd);
 }
 
@@ -123,3 +109,7 @@ buttonCloseElement.forEach((button) => {
     closePopup(openedPopup);
   });
 });
+
+// Проверка формы на валидность через класс
+const formValidate = new FormValidator(formObject);
+formValidate.enableValidation();
