@@ -1,62 +1,55 @@
+import { openPopup } from "./utils.js";
+
 export class Card {
-  constructor(template) {
+  constructor(data, template) {
     this._template = template;
+    this._name = data.name;
+    this._link = data.link;
   }
 
   // Создание карточки
-  generateCard(name, link) {
-    this._element = this._template.cloneNode(true);
-    this._setEventsListener(name, link);
-    this._element.querySelector(".elements__title").textContent = name;
-    this._element.querySelector(".elements__img").src = link;
-    this._element.querySelector(".elements__img").alt = name;
+  generateCard() {
+    this._element = this._template.cloneNode(true).children[0];
+    this._setEventsListener();
+    this._element.querySelector(".elements__title").textContent = this._name;
+    this._element.querySelector(".elements__img").alt = this._name;
+    this._element.querySelector(".elements__img").src = this._link;
     return this._element;
   }
 
-  // Нажатие кнопки лайка
-  _handlerLikeButton() {
+  // Лайк карточки
+  _handlerLikeButton = () => {
     this._element
       .querySelector(".elements__like")
-      .addEventListener("click", function () {
-        this.classList.toggle("elements__like_active");
-      });
-  }
+      .classList.toggle("elements__like_active");
+  };
 
-  // Кнопка удаления карточки
-  _handlerDeleteButtonCard() {
-    const card = this._element
-      .querySelector(".elements__button-delete")
-      .addEventListener("click", function () {
-        this.closest(".elements__item").remove();
-      });
-  }
-
-  // Закрытие при нажатии ESC
-  _closePopupKeydownEscape = (evt) => {
-    if (evt.key === "Escape") {
-      const activePopup = document.querySelector(".popup_opened");
-      activePopup.classList.remove("popup_opened");
-      document.removeEventListener("keydown", this._closePopupKeydownEscape);
-    }
+  // Удаление карточки
+  _deleteButtonToggle = () => {
+    this._element.remove();
+    this._element = null;
   };
 
   // Открытие модалки с карточкой
-  _openModalCard(name, link) {
-    this._element
-      .querySelector(".elements__img")
-      .addEventListener("click", () => {
-        popupImage.classList.add("popup_opened");
-        imageCard.src = link;
-        imageCard.alt = name;
-        figcaptionCard.textContent = name;
-        document.addEventListener("keydown", this._closePopupKeydownEscape);
-      });
-  }
+  _openModalCard = () => {
+    openPopup(popupImage);
+    imageCard.src = this._link;
+    imageCard.alt = this._name;
+    figcaptionCard.textContent = this._name;
+  };
 
   // Навесить слушатели событий
-  _setEventsListener = (name, link) => {
-    this._handlerLikeButton();
-    this._handlerDeleteButtonCard();
-    this._openModalCard(name, link);
+  _setEventsListener = () => {
+    this._element
+      .querySelector(".elements__button-delete")
+      .addEventListener("click", this._deleteButtonToggle);
+
+    this._element
+      .querySelector(".elements__like")
+      .addEventListener("click", this._handlerLikeButton);
+
+    this._element
+      .querySelector(".elements__img")
+      .addEventListener("click", this._openModalCard);
   };
 }
