@@ -9,7 +9,9 @@ export class Card {
 
   // Создание карточки
   generateCard() {
-    this._element = this._template.cloneNode(true).children[0];
+    this._element = this._template
+      .querySelector(".elements__item")
+      .cloneNode(true);
     this._setEventsListener();
     this._element.querySelector(".elements__title").textContent = this._name;
     this._element.querySelector(".elements__img").alt = this._name;

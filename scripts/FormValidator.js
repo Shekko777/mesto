@@ -7,6 +7,8 @@ export class FormValidator {
     this._inactiveButtonClass = config.inactiveButtonClass;
     this._inputErrorClass = config.inputErrorClass;
     this._errorClass = config.errorClass;
+    this._button = formElement.querySelector(`${config.submitButtonSelector}`);
+    this._inputList = formElement.querySelectorAll(`${config.inputSelector}`);
 
     // форма
     this._formElement = formElement;
@@ -28,20 +30,14 @@ export class FormValidator {
 
   // Включить кнопку
   _activeButton = () => {
-    const buttonSave = this._formElement.querySelector(
-      this._submitButtonSelector
-    );
-    buttonSave.disabled = false;
-    buttonSave.classList.remove(this._inactiveButtonClass);
+    this._button.disabled = false;
+    this._button.classList.remove(this._inactiveButtonClass);
   };
 
   // Заблокировать кнопку
   _blockedButton = () => {
-    const buttonSave = this._formElement.querySelector(
-      this._submitButtonSelector
-    );
-    buttonSave.disabled = true;
-    buttonSave.classList.add(this._inactiveButtonClass);
+    this._button.disabled = true;
+    this._button.classList.add(this._inactiveButtonClass);
   };
 
   // Проверить статус кнопки
@@ -63,13 +59,8 @@ export class FormValidator {
 
   // Повесить обработчики событий
   _setEventListener = () => {
-    const inputsList = Array.from(
-      this._formElement.querySelectorAll(this._inputSelector)
-    );
-
     this._setButtonStatus(false);
-
-    inputsList.forEach((inputItem) => {
+    this._inputList.forEach((inputItem) => {
       inputItem.addEventListener("input", () => {
         this._checkInputValidate(inputItem);
         this._setButtonStatus(this._formElement.checkValidity());
@@ -79,24 +70,18 @@ export class FormValidator {
 
   // Сбросить ошибки
   resetError() {
-    const inputsList = this._formElement.querySelectorAll(this._inputSelector);
-    const buttonSave = this._formElement.querySelector(
-      this._submitButtonSelector
-    );
-    inputsList.forEach((inputElement) => {
+    this._inputList.forEach((inputElement) => {
+      // сделал так потому, что если использовать метод _checkInputValidate, то при открытии он сразу показывает ошибки, что поля не заполнены :с
       const errorSpan = this._formElement.querySelector(
         `#${inputElement.name}-error`
       );
-      errorSpan.classList.remove("popup__error_visible");
-      errorSpan.textContent = "";
-      inputElement.classList.remove("popup__input_type_error");
-      buttonSave.disabled = true;
-      buttonSave.classList.add("popup__save-btn_disabled");
+      this._hideErrorMessage(inputElement, errorSpan);
+      this._blockedButton();
     });
   }
 
   // Включить проверку формы
   enableValidation() {
-    this._setEventListener(this._formElement);
+    this._setEventListener();
   }
 }
