@@ -8,15 +8,14 @@
     <meta name="author" content="Иван Першин">
     <meta name="keywords" content="Места России, Mesto, Место">
     <meta name="description" content="Удивительные места России в картинках.">
-    <link rel="stylesheet" href="./pages/index.css">
-    <link rel="icon" href="./images/elements/like_active.svg">
+    <link rel="icon" href="<%=require('./images/elements/like_active.svg')%>">
     <title>Mesto</title>
 </head>
 
 <body class="body">
     <!-- header -->
     <header class="header">
-        <img class="header__logo" src="./images/header/logo.svg" alt="Логотип Mesto">
+        <img class="header__logo" src="<%=require('./images/header/logo.svg')%>" alt="Логотип Mesto">
     </header>
 
     <!-- main -->
@@ -26,7 +25,7 @@
         <section class="profile">
             <div class="profile__wrapper">
                 <div class="profile__info">
-                    <img class="profile__avatar" src="./images/profile/avatar.jpg" alt="Аватар профиля">
+                    <img class="profile__avatar" src="<%=require('./images/profile/avatar.jpg')%>" alt="Аватар профиля">
                     <div class="profile__description">
                         <h1 class="profile__title">Жак-Ив Кусто</h1>
                         <p class="profile__subtitle">Исследователь океана</p>
@@ -108,9 +107,7 @@
             </figure>
         </div>
     </div>
-    <script src="./scripts/constants.js"></script>
-    <script src="./scripts/cards.js"></script>
-    <script type="module" src="./pages/index.js"></script>
+    <!-- <script type="module" src="./pages/index.js"></script> -->
 </body>
 
 </html>

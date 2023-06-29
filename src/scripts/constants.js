@@ -34,3 +34,27 @@ const formObject = {
   inputErrorClass: "popup__input_type_error",
   errorClass: "popup__error_visible",
 };
+
+export {
+  images,
+  templateCard,
+  cardListContainer,
+  buttonCloseElement,
+  popupForms,
+  inputValueJob,
+  inputValueName,
+  profileName,
+  profileAdd,
+  profileJob,
+  formProfile,
+  popupEdit,
+  profileEditor,
+  popupAdd,
+  popupAddName,
+  popupAddLink,
+  popupAddForm,
+  popupImage,
+  imageCard,
+  figcaptionCard,
+  formObject,
+};

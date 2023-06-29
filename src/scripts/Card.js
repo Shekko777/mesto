@@ -1,4 +1,5 @@
 import { openPopup } from "./utils.js";
+import { popupImage, imageCard, figcaptionCard } from "./constants.js";
 
 export class Card {
   constructor(data, template) {

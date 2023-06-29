@@ -1,13 +1,57 @@
-// Импортирование элементов из '../scripts/'
+/*
+Задачи:
+1) Section DONE
+2) Popup
+3) PopupWithImage
+4) UserInfo
+5) Card преобразовать
+*/
+
+// ИМПОРТЫ
+import "./index.css";
+import {
+  templateCard,
+  cardListContainer,
+  buttonCloseElement,
+  inputValueJob,
+  inputValueName,
+  profileName,
+  profileAdd,
+  profileJob,
+  formProfile,
+  popupEdit,
+  profileEditor,
+  popupAdd,
+  popupAddName,
+  popupAddLink,
+  popupAddForm,
+  formObject,
+} from "../scripts/constants.js";
+import { initialCards } from "../scripts/cards.js";
 import { Card } from "../scripts/Card.js";
 import { FormValidator } from "../scripts/FormValidator.js";
+import { Section } from "../scripts/Section.js";
 import { openPopup, closePopup } from "../scripts/utils.js";
+
 // Создаём карточки из коробки
-initialCards.forEach((card) => {
-  const newCard = new Card(card, templateCard);
-  const cardElement = newCard.generateCard();
-  cardListContainer.append(cardElement);
-});
+function createNewCard(item) {
+  const cardItem = new Card(item, templateCard);
+  const newCard = cardItem.generateCard();
+  return newCard;
+}
+
+const renderCard = new Section(
+  {
+    data: initialCards,
+    renderer: (item) => {
+      const cardElement = createNewCard(item);
+      renderCard.addItem(cardElement);
+    },
+  },
+  ".elements__list"
+);
+
+renderCard.renderElements();
 
 // Функция изменения профиля
 function handleProfileFormSubmit(evt) {
@@ -69,5 +113,3 @@ buttonCloseElement.forEach((button) => {
     closePopup(openedPopup);
   });
 });
-
-console.log("hello world");
