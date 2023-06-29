@@ -69,3 +69,5 @@ buttonCloseElement.forEach((button) => {
     closePopup(openedPopup);
   });
 });
+
+console.log("hello world");
