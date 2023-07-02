@@ -28,10 +28,16 @@ import {
   formObject,
 } from "../scripts/constants.js";
 import { initialCards } from "../scripts/cards.js";
+// import { openPopup, closePopup } from "../scripts/utils.js";
 import { Card } from "../scripts/Card.js";
 import { FormValidator } from "../scripts/FormValidator.js";
 import { Section } from "../scripts/Section.js";
-import { openPopup, closePopup } from "../scripts/utils.js";
+import { Popup } from "../scripts/Popup.js";
+
+//////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////
 
 // Создаём карточки из коробки
 function createNewCard(item) {
@@ -53,6 +59,11 @@ const renderCard = new Section(
 
 renderCard.renderElements();
 
+//////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////
+
 // Функция изменения профиля
 function handleProfileFormSubmit(evt) {
   evt.preventDefault();
@@ -66,16 +77,37 @@ formProfile.addEventListener("submit", handleProfileFormSubmit);
 const validateAddForm = new FormValidator(formObject, popupAddForm);
 validateAddForm.enableValidation();
 
+//////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////
+
+const openAddCardProfile = new Popup({ popupSelector: "popup_type_add" });
+openAddCardProfile.setEventListeners();
+
+profileAdd.addEventListener("click", () => {
+  openAddCardProfile.open();
+  openAddCardProfile.setEventListeners();
+});
 // Функция открытия попапа с добавлением карточки
-function opepAddCardPopup(popupElement) {
+function opepAddCardPopup() {
   validateAddForm.resetError();
-  openPopup(popupElement);
   popupAddForm.reset();
 }
+
+//////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////
 
 // Проверка валидности редактирования профиля
 const validateProfileForm = new FormValidator(formObject, formProfile);
 validateProfileForm.enableValidation();
+
+//////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////
 
 // Функция открытия редактирования профиля
 function openProfilePopup(popupElement) {
@@ -88,9 +120,11 @@ function openProfilePopup(popupElement) {
 profileEditor.addEventListener("click", () => {
   openProfilePopup(popupEdit);
 });
-profileAdd.addEventListener("click", () => {
-  opepAddCardPopup(popupAdd);
-});
+
+//////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////
 
 // Добавления карточки
 function addNewsCard(evt) {
@@ -106,10 +140,10 @@ function addNewsCard(evt) {
 
 popupAddForm.addEventListener("submit", addNewsCard);
 
-// Закрытие открытых попапов
-buttonCloseElement.forEach((button) => {
-  button.addEventListener("click", () => {
-    const openedPopup = button.closest(".popup_opened");
-    closePopup(openedPopup);
-  });
-});
+// // Закрытие открытых попапов
+// buttonCloseElement.forEach((button) => {
+//   button.addEventListener("click", () => {
+//     const openedPopup = button.closest(".popup_opened");
+//     closePopup(openedPopup);
+//   });
+// });
