@@ -2,7 +2,7 @@
 
 **[Перейти на сайт](https://shekko777.github.io/mesto/)**
 
-<img src="./images/README/mesto.jpg" width="700">
+<img src="./src/images/README/mesto.jpg" width="700">
 
 ---
 
@@ -20,27 +20,27 @@ git clone https://github.com/Shekko777/mesto.git
 
 1. **Уникальные профили**
 
-<img src="./images/README/1.jpg" width="500">
+<img src="./src//images/README/1.jpg" width="500">
 
 2. **Возможность оценивать публикации**
 
-<img src="./images/README/2.jpg" width="500">
+<img src="./src//images/README/2.jpg" width="500">
 
 3. **Элегантное редактирование профиля**
 
-<img src="./images/README/3.jpg" width="500">
+<img src="./src//images/README/3.jpg" width="500">
 
 4. **Полностью адаптивная вёрстка**
 
-<img src="./images/README/4.jpg" height="500">
+<img src="./src//images/README/4.jpg" height="500">
 
 5. **Возможность добавлять новые картинки**
 
-<img src="./images/README/5.jpg" height="500">
+<img src="./src//images/README/5.jpg" height="500">
 
 6. **Открытие полномасштабного изображения**
 
-<img src="./images/README/6.jpg" height="500">
+<img src="./src//images/README/6.jpg" height="500">
 
 ---
 
