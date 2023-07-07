@@ -1,11 +1,9 @@
-import { openPopup } from "./utils.js";
-import { popupImage, imageCard, figcaptionCard } from "./constants.js";
-
-export class Card {
-  constructor(data, template) {
+class Card {
+  constructor({ handleCardClick }, data, template) {
     this._template = template;
-    this._name = data.name;
+    this._name = data.description;
     this._link = data.link;
+    this._handleCardClick = handleCardClick;
   }
 
   // Создание карточки
@@ -33,14 +31,6 @@ export class Card {
     this._element = null;
   };
 
-  // Открытие модалки с карточкой
-  _openModalCard = () => {
-    openPopup(popupImage);
-    imageCard.src = this._link;
-    imageCard.alt = this._name;
-    figcaptionCard.textContent = this._name;
-  };
-
   // Навесить слушатели событий
   _setEventsListener = () => {
     this._element
@@ -53,6 +43,7 @@ export class Card {
 
     this._element
       .querySelector(".elements__img")
-      .addEventListener("click", this._openModalCard);
+      .addEventListener("click", this._handleCardClick);
   };
 }
+export default Card;
