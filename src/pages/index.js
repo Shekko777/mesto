@@ -20,18 +20,17 @@ import PopupWithForm from "../components/PopupWithForm";
 import PopupWithImage from "../components/PopupWithImage";
 import UserInfo from "../components/UserInfo.js";
 
+const popupImage = new PopupWithImage({
+  popupSelector: "popup-images",
+});
+popupImage.setEventListeners();
+
 // Создаём карточки из коробки
 function createNewCard(item) {
   const cardItem = new Card(
     {
       handleCardClick: () => {
-        const openModalCard = new PopupWithImage({
-          popupSelector: "popup-images",
-          imageTitle: item.description,
-          imageSrc: item.link,
-        });
-        openModalCard.open();
-        openModalCard.setEventListeners();
+        popupImage.open(item.description, item.link);
       },
     },
     item,
@@ -56,42 +55,42 @@ renderCards.renderElements();
 
 // Попап редактирования профиля
 const newUserInfo = new UserInfo({
-  userName: inputValueName,
-  userInfo: inputValueJob,
   profileNameElement: profileName,
   profileJobElement: profileJob,
 });
 
-const openPopupUserInfo = new PopupWithForm({
+const popupEditProfile = new PopupWithForm({
   popupSelector: "popup_type_edit",
   submit: (data) => {
     newUserInfo.setUserInfo(data.name, data.job);
   },
 });
-openPopupUserInfo.setEventListeners();
+popupEditProfile.setEventListeners();
 
 profileEditor.addEventListener("click", () => {
+  const { name, job } = newUserInfo.getUserInfo();
+  inputValueName.value = name;
+  inputValueJob.value = job;
   formUserValidation.resetError();
-  openPopupUserInfo.open();
-  newUserInfo.getUserInfo();
+  popupEditProfile.open();
 });
+
+const createNewsCard = new Section(
+  {
+    data: [],
+    renderer: () => {},
+  },
+  ".elements__list"
+);
 
 // Попап с добавлением карточки
 const popupWithNewCard = new PopupWithForm({
   popupSelector: "popup_type_add",
   submit: (item) => {
-    const createNewsCard = new Section(
-      {
-        data: [],
-        renderer: () => {},
-      },
-      ".elements__list"
-    );
     const cardElement = createNewCard(item);
     createNewsCard.addItem(cardElement, false);
   },
 });
-
 popupWithNewCard.setEventListeners();
 
 profileAdd.addEventListener("click", () => {

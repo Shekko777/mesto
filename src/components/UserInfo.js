@@ -1,16 +1,14 @@
-import { profileName, profileJob } from "../scripts/constants.js";
-
 class UserInfo {
   constructor({ userName, userInfo, profileNameElement, profileJobElement }) {
-    this._name = userName;
-    this._info = userInfo;
     this._profileNameElement = profileNameElement;
     this._profileJobElement = profileJobElement;
   }
 
   getUserInfo() {
-    this._name.value = profileName.textContent;
-    this._info.value = profileJob.textContent;
+    return {
+      name: this._profileNameElement.textContent,
+      job: this._profileJobElement.textContent,
+    };
   }
 
   setUserInfo(name, info) {
