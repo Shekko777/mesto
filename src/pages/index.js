@@ -11,14 +11,17 @@ import {
   formObject,
   formProfile,
   popupAddForm,
+  apiConfig,
 } from "../scripts/constants.js";
-import { initialCards } from "../scripts/cards.js";
 import FormValidator from "../components/FormValidator.js";
 import Card from "../components/Card.js";
 import Section from "../components/Section.js";
 import PopupWithForm from "../components/PopupWithForm";
 import PopupWithImage from "../components/PopupWithImage";
 import UserInfo from "../components/UserInfo.js";
+import Api from "../components/Api";
+
+const api = new Api(apiConfig);
 
 const popupImage = new PopupWithImage({
   popupSelector: "popup-images",
@@ -30,7 +33,7 @@ function createNewCard(item) {
   const cardItem = new Card(
     {
       handleCardClick: () => {
-        popupImage.open(item.description, item.link);
+        popupImage.open(item.name, item.link);
       },
     },
     item,
@@ -40,18 +43,19 @@ function createNewCard(item) {
   return newCard;
 }
 
-const renderCards = new Section(
-  {
-    data: initialCards,
-    renderer: (item) => {
-      const cardElement = createNewCard(item);
-      renderCards.addItem(cardElement, true);
+api.getCards().then((data) => {
+  const renderCards = new Section(
+    {
+      data: data,
+      renderer: (item) => {
+        const cardElement = createNewCard(item);
+        renderCards.addItem(cardElement, true);
+      },
     },
-  },
-  ".elements__list"
-);
-
-renderCards.renderElements();
+    ".elements__list"
+  );
+  renderCards.renderElements();
+});
 
 // Попап редактирования профиля
 const newUserInfo = new UserInfo({
@@ -75,6 +79,7 @@ profileEditor.addEventListener("click", () => {
   popupEditProfile.open();
 });
 
+// Попап с добавлением карточки
 const createNewsCard = new Section(
   {
     data: [],
@@ -83,7 +88,6 @@ const createNewsCard = new Section(
   ".elements__list"
 );
 
-// Попап с добавлением карточки
 const popupWithNewCard = new PopupWithForm({
   popupSelector: "popup_type_add",
   submit: (item) => {

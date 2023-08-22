@@ -54,7 +54,10 @@
             <img class="elements__img" src="#" alt="Загружается из JS">
             <div class="elements__info">
                 <h2 class="elements__title"></h2>
-                <button class="elements__like" type="button"></button>
+                <div class="elements__wrapper">
+                    <button class="elements__like" type="button"></button>
+                    <p class="elements__counter">0</p>
+                </div>
             </div>
         </li>
     </template>
@@ -107,7 +110,36 @@
             </figure>
         </div>
     </div>
-    <!-- <script type="module" src="./pages/index.js"></script> -->
+
+    <!-- popup delete -->
+    <div class="popup popup_type_delete">
+        <div class="popup__container">
+            <button class="popup__close" type="button"></button>
+            <form class="popup__form popup__form_type_delete" action="#" novalidate>
+                <fieldset class="popup__fieldset">
+                    <label class="popup__label popup__label_type_delete">Вы уверены?</label>
+                </fieldset>
+                <button class="popup__save-btn popup__save-btn_type_delete" type="submit">Да</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- popup newAvatar -->
+    <div class="popup popup_type_avatar">
+        <div class="popup__container">
+            <button class="popup__close" type="button"></button>
+            <form class="popup__form popup__form_type_avatar" action="#" novalidate>
+                <fieldset class="popup__fieldset">
+                    <label class="popup__label">Обновить аватар</label>
+                    <input class="popup__input popup__input_add_avatar" name="link" value="" type="url"
+                        placeholder="URL" autocomplete="off" required>
+                    <span class="popup__error" id="link-error"></span>
+                </fieldset>
+                <button class="popup__save-btn popup__save-btn_type_avatar" type="submit">Сохранить</button>
+            </form>
+        </div>
+    </div>
+
 </body>
 
 </html>

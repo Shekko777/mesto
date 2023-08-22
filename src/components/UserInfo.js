@@ -1,5 +1,5 @@
 class UserInfo {
-  constructor({ userName, userInfo, profileNameElement, profileJobElement }) {
+  constructor({ profileNameElement, profileJobElement }) {
     this._profileNameElement = profileNameElement;
     this._profileJobElement = profileJobElement;
   }

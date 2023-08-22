@@ -35,6 +35,14 @@ const formObject = {
   errorClass: "popup__error_visible",
 };
 
+const apiConfig = {
+  url: "https://mesto.nomoreparties.co/v1/cohort-73",
+  headers: {
+    "Content-Type": "application/json",
+    authorization: "4e96e45f-913a-4a1f-b36d-22c36d55bd2e",
+  },
+};
+
 export {
   images,
   templateCard,
@@ -57,4 +65,5 @@ export {
   imageCard,
   figcaptionCard,
   formObject,
+  apiConfig,
 };
