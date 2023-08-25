@@ -23,4 +23,15 @@ export default class Api {
       headers: this._headers,
     }).then(this._getResponce);
   }
+
+  setNewUserInfo() {
+    return fetch(`${this._url}/user/me`, {
+      method: "PATCH",
+      headers: this._headers,
+      body: JSON.stringify({
+        name: name,
+        about: about,
+      })
+    })
+  }
 }

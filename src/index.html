@@ -27,8 +27,8 @@
                 <div class="profile__info">
                     <img class="profile__avatar" src="<%=require('./images/profile/avatar.jpg')%>" alt="Аватар профиля">
                     <div class="profile__description">
-                        <h1 class="profile__title">Жак-Ив Кусто</h1>
-                        <p class="profile__subtitle">Исследователь океана</p>
+                        <h1 class="profile__title"></h1>
+                        <p class="profile__subtitle"></p>
                         <button class="profile__edit-btn" type="button"></button>
                     </div>
                 </div>
@@ -72,9 +72,9 @@
                     <input class="popup__input popup__input_place_title" name="name" value="" type="text"
                         placeholder="Введите ваше имя" autocomplete="off" minlength="2" maxlength="20" required>
                     <span class="popup__error" id="name-error">Вы пропустили это поле.</span>
-                    <input class="popup__input popup__input_place_subtitle" name="job" value="" type="text"
+                    <input class="popup__input popup__input_place_subtitle" name="about" value="" type="text"
                         placeholder="Напишите о себе" autocomplete="off" minlength="2" maxlength="200" required>
-                    <span class="popup__error" id="job-error">Вы пропустили это поле.</span>
+                    <span class="popup__error" id="about-error">Вы пропустили это поле.</span>
                 </fieldset>
                 <button class="popup__save-btn popup__save-btn_type_edit" type="submit">Сохранить</button>
             </form>

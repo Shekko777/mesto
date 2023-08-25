@@ -58,26 +58,36 @@ api.getCards().then((data) => {
 });
 
 // Попап редактирования профиля
+api.getUserInfo().then(data => {
+  profileName.textContent = data.name;
+  profileJob.textContent = data.about;
+})
+
 const newUserInfo = new UserInfo({
   profileNameElement: profileName,
   profileJobElement: profileJob,
 });
 
+profileEditor.addEventListener("click", () => {
+ const { name, job } = newUserInfo.getUserInfo();
+ inputValueName.value = name;
+ inputValueJob.value = job;
+ formUserValidation.resetError();
+ popupEditProfile.open();
+});
+
 const popupEditProfile = new PopupWithForm({
   popupSelector: "popup_type_edit",
   submit: (data) => {
-    newUserInfo.setUserInfo(data.name, data.job);
+    api.setUserInfo().then(res => {
+      console.log(res)
+    });
+    // newUserInfo.setUserInfo(data.name, data.about);
   },
 });
 popupEditProfile.setEventListeners();
 
-profileEditor.addEventListener("click", () => {
-  const { name, job } = newUserInfo.getUserInfo();
-  inputValueName.value = name;
-  inputValueJob.value = job;
-  formUserValidation.resetError();
-  popupEditProfile.open();
-});
+
 
 // Попап с добавлением карточки
 const createNewsCard = new Section(
@@ -109,3 +119,4 @@ formUserValidation.enableValidation();
 // Проверка валидности добавления карточки
 const formAddNewCardValidation = new FormValidator(formObject, popupAddForm);
 formAddNewCardValidation.enableValidation();
+
