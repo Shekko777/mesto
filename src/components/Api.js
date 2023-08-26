@@ -24,14 +24,25 @@ export default class Api {
     }).then(this._getResponce);
   }
 
-  setNewUserInfo() {
-    return fetch(`${this._url}/user/me`, {
+  setNewUserInfo(name, about) {
+    return fetch(`${this._url}/users/me`, {
       method: "PATCH",
       headers: this._headers,
       body: JSON.stringify({
         name: name,
         about: about,
-      })
-    })
+      }),
+    });
+  }
+
+  addNewCard(link, name) {
+    return fetch(`${this._url}/cards`, {
+      method: "POST",
+      headers: this._headers,
+      body: JSON.stringify({
+        link: link,
+        name: name,
+      }),
+    });
   }
 }

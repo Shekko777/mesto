@@ -58,36 +58,31 @@ api.getCards().then((data) => {
 });
 
 // Попап редактирования профиля
-api.getUserInfo().then(data => {
-  profileName.textContent = data.name;
-  profileJob.textContent = data.about;
-})
-
 const newUserInfo = new UserInfo({
   profileNameElement: profileName,
   profileJobElement: profileJob,
 });
 
+api.getUserInfo().then((data) => {
+  newUserInfo.setUserInfo(data.name, data.about);
+});
+
 profileEditor.addEventListener("click", () => {
- const { name, job } = newUserInfo.getUserInfo();
- inputValueName.value = name;
- inputValueJob.value = job;
- formUserValidation.resetError();
- popupEditProfile.open();
+  const { name, job } = newUserInfo.getUserInfo();
+  inputValueName.value = name;
+  inputValueJob.value = job;
+  formUserValidation.resetError();
+  popupEditProfile.open();
 });
 
 const popupEditProfile = new PopupWithForm({
   popupSelector: "popup_type_edit",
   submit: (data) => {
-    api.setUserInfo().then(res => {
-      console.log(res)
-    });
-    // newUserInfo.setUserInfo(data.name, data.about);
+    api.setNewUserInfo(data.name, data.about);
+    newUserInfo.setUserInfo(data.name, data.about);
   },
 });
 popupEditProfile.setEventListeners();
-
-
 
 // Попап с добавлением карточки
 const createNewsCard = new Section(
@@ -101,6 +96,7 @@ const createNewsCard = new Section(
 const popupWithNewCard = new PopupWithForm({
   popupSelector: "popup_type_add",
   submit: (item) => {
+    api.addNewCard(item.link, item.name);
     const cardElement = createNewCard(item);
     createNewsCard.addItem(cardElement, false);
   },
@@ -119,4 +115,3 @@ formUserValidation.enableValidation();
 // Проверка валидности добавления карточки
 const formAddNewCardValidation = new FormValidator(formObject, popupAddForm);
 formAddNewCardValidation.enableValidation();
-
