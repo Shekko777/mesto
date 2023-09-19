@@ -71,7 +71,6 @@ class FormValidator {
   // Сбросить ошибки
   resetError() {
     this._inputList.forEach((inputElement) => {
-      // сделал так потому, что если использовать метод _checkInputValidate, то при открытии он сразу показывает ошибки, что поля не заполнены :с
       const errorSpan = this._formElement.querySelector(
         `#${inputElement.name}-error`
       );

@@ -1,9 +1,19 @@
 class Card {
-  constructor({ handleCardClick }, data, template) {
+  constructor(
+    { ownerId, handleCardClick, handleButtonDeleteClick, handleLikeClick },
+    data,
+    template
+  ) {
     this._template = template;
     this._name = data.name;
     this._link = data.link;
+    this._like = data.likes;
+    this._id = data._id;
+    this._ownerIdCard = data.owner._id;
+    this._userId = ownerId;
     this._handleCardClick = handleCardClick;
+    this._handleButtonDeleteClick = handleButtonDeleteClick;
+    this._handleLikeClick = handleLikeClick;
   }
 
   // Создание карточки
@@ -15,6 +25,11 @@ class Card {
     this._element.querySelector(".elements__title").textContent = this._name;
     this._element.querySelector(".elements__img").alt = this._name;
     this._element.querySelector(".elements__img").src = this._link;
+    this._element.querySelector(".elements__counter").textContent =
+      this._like.length;
+    if (this._ownerIdCard !== this._userId) {
+      this._element.querySelector(".elements__button-delete").remove();
+    }
     return this._element;
   }
 
@@ -29,6 +44,7 @@ class Card {
   _deleteButtonToggle = () => {
     this._element.remove();
     this._element = null;
+    this._handleButtonDeleteClick(this._id);
   };
 
   // Навесить слушатели событий

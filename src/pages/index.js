@@ -1,4 +1,4 @@
-// ИМПОРТЫ
+// ИМПОРТЫ ПЕРЕМЕННЫХ
 import "./index.css";
 import {
   templateCard,
@@ -12,6 +12,10 @@ import {
   formProfile,
   popupAddForm,
   apiConfig,
+  popupConfirm,
+  formConfirm,
+  popupAddName,
+  popupAddLink,
 } from "../scripts/constants.js";
 import FormValidator from "../components/FormValidator.js";
 import Card from "../components/Card.js";
@@ -21,19 +25,57 @@ import PopupWithImage from "../components/PopupWithImage";
 import UserInfo from "../components/UserInfo.js";
 import Api from "../components/Api";
 
+// Подключение API
 const api = new Api(apiConfig);
 
+// Обьявление попапа с картинкой
 const popupImage = new PopupWithImage({
   popupSelector: "popup-images",
 });
 popupImage.setEventListeners();
 
-// Создаём карточки из коробки
-function createNewCard(item) {
+// Переменная для проверки айди пользователя.
+let userId;
+
+// Получение пользователя и карточек с сервера для работы с ними
+Promise.all([api.getUserInfo(), api.getCards()])
+  .then(([userInfoList, cards]) => {
+    userId = userInfoList._id; // Установка айди пользователя в переменную
+
+    // Создание карточек из сервера
+    const renderCards = new Section(
+      {
+        data: cards,
+        renderer: (item) => {
+          const cardElement = createNewCard(item, userId);
+          renderCards.addItem(cardElement, true);
+        },
+      },
+      ".elements__list"
+    );
+    renderCards.renderElements();
+
+    // Установка данных пользователя
+    newUserInfo.setUserInfo(userInfoList.name, userInfoList.about);
+  })
+  .catch((err) => console.log(`Ошибка: ${err}`));
+
+// Функция создания карточек
+function createNewCard(item, ownerMeId) {
   const cardItem = new Card(
     {
+      ownerId: ownerMeId,
       handleCardClick: () => {
         popupImage.open(item.name, item.link);
+      },
+      handleButtonDeleteClick: (id) => {
+        api
+          .deleteCard(id)
+          .then(() => {})
+          .catch((err) => console.log(`Ошибка: ${err}`));
+      },
+      handleLikeClick: () => {
+        console.log("hello");
       },
     },
     item,
@@ -43,30 +85,14 @@ function createNewCard(item) {
   return newCard;
 }
 
-api.getCards().then((data) => {
-  const renderCards = new Section(
-    {
-      data: data,
-      renderer: (item) => {
-        const cardElement = createNewCard(item);
-        renderCards.addItem(cardElement, true);
-      },
-    },
-    ".elements__list"
-  );
-  renderCards.renderElements();
-});
-
-// Попап редактирования профиля
+// РЕДАКТИРОВАНИЕ ПРОФИЛЯ:
+// Редактирование профиля: Обьявление класса
 const newUserInfo = new UserInfo({
   profileNameElement: profileName,
   profileJobElement: profileJob,
 });
 
-api.getUserInfo().then((data) => {
-  newUserInfo.setUserInfo(data.name, data.about);
-});
-
+// Редактирование профиля: Открытие попапа
 profileEditor.addEventListener("click", () => {
   const { name, job } = newUserInfo.getUserInfo();
   inputValueName.value = name;
@@ -75,6 +101,7 @@ profileEditor.addEventListener("click", () => {
   popupEditProfile.open();
 });
 
+// Редактирование профиля: Обьявление попапа
 const popupEditProfile = new PopupWithForm({
   popupSelector: "popup_type_edit",
   submit: (data) => {
@@ -84,7 +111,8 @@ const popupEditProfile = new PopupWithForm({
 });
 popupEditProfile.setEventListeners();
 
-// Попап с добавлением карточки
+// ДОБАВЛЕНИЕ КАРТОЧКИ:
+// Не помню что... но что-то важное
 const createNewsCard = new Section(
   {
     data: [],
@@ -93,21 +121,25 @@ const createNewsCard = new Section(
   ".elements__list"
 );
 
+// Добавление карточки: Попап с добавлением карточки
 const popupWithNewCard = new PopupWithForm({
   popupSelector: "popup_type_add",
   submit: (item) => {
-    api.addNewCard(item.link, item.name);
-    const cardElement = createNewCard(item);
-    createNewsCard.addItem(cardElement, false);
+    api.addNewCard(item.link, item.name).then((dataCard) => {
+      const cardElement = createNewCard(dataCard, userId);
+      createNewsCard.addItem(cardElement, false);
+    });
   },
 });
 popupWithNewCard.setEventListeners();
 
+// Добавление карточки: Открытие попа добавление карточки
 profileAdd.addEventListener("click", () => {
   formAddNewCardValidation.resetError();
   popupWithNewCard.open();
 });
 
+// ВАЛИДАЦИЯ ФОРМ:
 // Проверка валидности формы информации юзера
 const formUserValidation = new FormValidator(formObject, formProfile);
 formUserValidation.enableValidation();
