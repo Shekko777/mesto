@@ -12,10 +12,7 @@ import {
   formProfile,
   popupAddForm,
   apiConfig,
-  popupConfirm,
-  formConfirm,
-  popupAddName,
-  popupAddLink,
+  // popupFormConfirm,
 } from "../scripts/constants.js";
 import FormValidator from "../components/FormValidator.js";
 import Card from "../components/Card.js";
@@ -24,6 +21,7 @@ import PopupWithForm from "../components/PopupWithForm";
 import PopupWithImage from "../components/PopupWithImage";
 import UserInfo from "../components/UserInfo.js";
 import Api from "../components/Api";
+import PopupConfirm from "../components/ConfirmPopup";
 
 // Подключение API
 const api = new Api(apiConfig);
@@ -69,10 +67,15 @@ function createNewCard(item, ownerMeId) {
         popupImage.open(item.name, item.link);
       },
       handleButtonDeleteClick: (id) => {
-        api
-          .deleteCard(id)
-          .then(() => {})
-          .catch((err) => console.log(`Ошибка: ${err}`));
+        popupFormConfirm.open();
+        popupFormConfirm.handleCallBackFunction(() => {
+          api
+            .deleteCard(id)
+            .then(() => {
+              cardItem.deleteCard();
+            })
+            .catch((err) => console.log(`Ошибка: ${err}`));
+        });
       },
       handleLikeClick: () => {
         console.log("hello");
@@ -136,6 +139,7 @@ popupWithNewCard.setEventListeners();
 // Добавление карточки: Открытие попа добавление карточки
 profileAdd.addEventListener("click", () => {
   formAddNewCardValidation.resetError();
+  popupAddForm.reset();
   popupWithNewCard.open();
 });
 
@@ -147,3 +151,9 @@ formUserValidation.enableValidation();
 // Проверка валидности добавления карточки
 const formAddNewCardValidation = new FormValidator(formObject, popupAddForm);
 formAddNewCardValidation.enableValidation();
+
+// Попап подтверждения
+const popupFormConfirm = new PopupConfirm({
+  popupSelector: "popup_type_delete",
+});
+popupFormConfirm.setEventListeners();
