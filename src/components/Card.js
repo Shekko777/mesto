@@ -48,12 +48,7 @@ class Card {
   deleteCard() {
     this._element.remove();
     this._element = null;
-<<<<<<< HEAD
-    this._handleButtonDeleteClick(this._id);
-  };
-=======
   }
->>>>>>> 5946671
 
   // Навесить слушатели событий
   _setEventsListener = () => {
