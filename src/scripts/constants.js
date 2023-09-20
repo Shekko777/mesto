@@ -54,4 +54,5 @@ export {
   apiConfig,
   popupConfirm,
   formConfirm,
+  formObject,
 };
