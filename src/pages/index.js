@@ -124,8 +124,8 @@ const newUserInfo = new UserInfo({
 
 // Редактирование профиля: Открытие попапа
 profileEditor.addEventListener("click", () => {
-  const { name, job } = newUserInfo.getUserInfo();
-  inputValueName.value = name;
+  const { user, job } = newUserInfo.getUserInfo();
+  inputValueName.value = user;
   inputValueJob.value = job;
   formUserValidation.resetError();
   popupEditProfile.open();
@@ -137,7 +137,7 @@ const popupEditProfile = new PopupWithForm({
   submit: (data) => {
     popupEditProfile.preloadAnimation(true, "Сохранение...");
     api
-      .setNewUserInfo(data.name, data.about)
+      .setNewUserInfo(data.user, data.about)
       .catch((err) =>
         console.log(`Не удолось обновить инфо пользователя: ${err}`)
       )
@@ -145,7 +145,7 @@ const popupEditProfile = new PopupWithForm({
         popupEditProfile.close();
         popupEditProfile.preloadAnimation(false, "");
       });
-    newUserInfo.setUserInfo(data.name, data.about);
+    newUserInfo.setUserInfo(data.user, data.about);
   },
 });
 popupEditProfile.setEventListeners();
