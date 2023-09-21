@@ -11,6 +11,7 @@ class UserInfo {
     };
   }
 
+  // ДЛЯ РЕВЬЮ: не совсем понял про проверкуаргументов
   setUserInfo(name, about) {
     this._profileNameElement.textContent = name;
     this._profileJobElement.textContent = about;

@@ -76,10 +76,10 @@ function createNewCard(item, ownerMeId) {
             .deleteCard(id)
             .then(() => {
               cardItem.deleteCard();
+              popupFormConfirm.close();
             })
             .catch((err) => console.log(`Ошибка удаления карточки: ${err}`))
             .finally(() => {
-              popupFormConfirm.close();
               popupFormConfirm.preloadAnimation(false, "");
             });
         });
@@ -138,11 +138,13 @@ const popupEditProfile = new PopupWithForm({
     popupEditProfile.preloadAnimation(true, "Сохранение...");
     api
       .setNewUserInfo(data.user, data.about)
+      .then(() => {
+        popupEditProfile.close();
+      })
       .catch((err) =>
         console.log(`Не удолось обновить инфо пользователя: ${err}`)
       )
       .finally(() => {
-        popupEditProfile.close();
         popupEditProfile.preloadAnimation(false, "");
       });
     newUserInfo.setUserInfo(data.user, data.about);
@@ -170,10 +172,10 @@ const popupWithNewCard = new PopupWithForm({
       .then((dataCard) => {
         const cardElement = createNewCard(dataCard, userId);
         createNewsCard.addItem(cardElement, false);
+        popupWithNewCard.close();
       })
       .catch((err) => console.log(`Ошибка добавления карточки: ${err}`))
       .finally(() => {
-        popupWithNewCard.close();
         popupWithNewCard.preloadAnimation(false, "");
       });
   },
@@ -215,10 +217,10 @@ const popupWithAvatar = new PopupWithForm({
       .setNewAvatar(newAvatar.avatar)
       .then((avatar) => {
         userAvatar.src = avatar.avatar;
+        popupWithAvatar.close();
       })
       .catch((err) => console.log(`Oops: ${err}`))
       .finally(() => {
-        popupWithAvatar.close();
         popupWithAvatar.preloadAnimation(false, "");
       });
   },
