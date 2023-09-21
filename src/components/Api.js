@@ -59,19 +59,30 @@ export default class Api {
     });
   }
 
+  // Смена аватара.
+  setNewAvatar(newAvatar) {
+    return fetch(`${this._url}/users/me/avatar`, {
+      method: "PATCH",
+      headers: this._headers,
+      body: JSON.stringify({
+        avatar: `${newAvatar}`,
+      }),
+    }).then(this._getResponce);
+  }
+
   // Лайк карточки.
-  likeCard() {
-    return fetch(`${this._url}/cards/${this._id}/likes`, {
+  likeCard(idCard) {
+    return fetch(`${this._url}/cards/${idCard}/likes`, {
       method: "PUT",
-      header: this._headers,
+      headers: this._headers,
     }).then(this._getResponce);
   }
 
   // Не лайк карточки.
-  unLikeCard() {
-    return fetch(`${this._url}/cards/${this._id}/likes`, {
+  unLikeCard(idCard) {
+    return fetch(`${this._url}/cards/${idCard}/likes`, {
       method: "DELETE",
-      header: this._headers,
+      headers: this._headers,
     }).then(this._getResponce);
   }
 }

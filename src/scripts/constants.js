@@ -1,4 +1,5 @@
 const templateCard = document.querySelector(".template-card").content; // Template для клонирования содержимого
+const userAvatar = document.querySelector(".profile__avatar");
 
 // Popup изменения профиля
 const inputValueName = document.querySelector(".popup__input_place_title"); //Имя профиля
@@ -14,11 +15,11 @@ const profileAdd = document.querySelector(".profile__add-btn"); // Кнопка 
 const popupAddForm = document.querySelector(".popup__form_type_add"); // Форма добавления карточки
 
 // Попап подтверждения
-const popupFormConfirm = document.querySelector(".popup__form_type_delete");
-
-// Попап подтверждения
 const popupConfirm = document.querySelector(".popup_type_delete");
 const formConfirm = document.querySelector(".popup__form_type_delete");
+
+// Попап обновления аватара
+const formAvatar = document.querySelector(".popup__form_type_avatar");
 
 // Обьект формы
 const formObject = {
@@ -55,4 +56,6 @@ export {
   popupConfirm,
   formConfirm,
   formObject,
+  formAvatar,
+  userAvatar,
 };

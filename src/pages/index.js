@@ -12,7 +12,8 @@ import {
   formProfile,
   popupAddForm,
   apiConfig,
-  // popupFormConfirm,
+  userAvatar,
+  formAvatar,
 } from "../scripts/constants.js";
 import FormValidator from "../components/FormValidator.js";
 import Card from "../components/Card.js";
@@ -39,7 +40,7 @@ let userId;
 Promise.all([api.getUserInfo(), api.getCards()])
   .then(([userInfoList, cards]) => {
     userId = userInfoList._id; // Установка айди пользователя в переменную
-
+    userAvatar.src = userInfoList.avatar;
     // Создание карточек из сервера
     const renderCards = new Section(
       {
@@ -56,7 +57,7 @@ Promise.all([api.getUserInfo(), api.getCards()])
     // Установка данных пользователя
     newUserInfo.setUserInfo(userInfoList.name, userInfoList.about);
   })
-  .catch((err) => console.log(`Ошибка: ${err}`));
+  .catch((err) => console.log(`Ошибка получения данных: ${err}`));
 
 // Функция создания карточек
 function createNewCard(item, ownerMeId) {
@@ -71,14 +72,30 @@ function createNewCard(item, ownerMeId) {
         popupFormConfirm.handleCallBackFunction(() => {
           api
             .deleteCard(id)
-            .then(() => {
-              cardItem.deleteCard();
-            })
-            .catch((err) => console.log(`Ошибка: ${err}`));
+            .then(() => {})
+            .catch((err) => console.log(`Ошибка удаления карточки: ${err}`));
         });
       },
-      handleLikeClick: () => {
-        console.log("hello");
+      handleLikeClick: (idCard) => {
+        if (cardItem.checkedMyLike()) {
+          api
+            .unLikeCard(idCard)
+            .then((dataCard) => {
+              cardItem.handleClickLike(cardItem.checkedMyLike, dataCard);
+            })
+            .catch((err) =>
+              console.log(`Удалить лайк не получилось, ошибка: ${err}`)
+            );
+        } else {
+          api
+            .likeCard(idCard)
+            .then((dataCard) => {
+              cardItem.handleClickLike(cardItem.checkedMyLike, dataCard);
+            })
+            .catch((err) =>
+              console.log(`Поставить лайк не получилось, ошибка: ${err}`)
+            );
+        }
       },
     },
     item,
@@ -128,10 +145,13 @@ const createNewsCard = new Section(
 const popupWithNewCard = new PopupWithForm({
   popupSelector: "popup_type_add",
   submit: (item) => {
-    api.addNewCard(item.link, item.name).then((dataCard) => {
-      const cardElement = createNewCard(dataCard, userId);
-      createNewsCard.addItem(cardElement, false);
-    });
+    api
+      .addNewCard(item.link, item.name)
+      .then((dataCard) => {
+        const cardElement = createNewCard(dataCard, userId);
+        createNewsCard.addItem(cardElement, false);
+      })
+      .catch((err) => console.log(`Ошибка добавления карточки: ${err}`));
   },
 });
 popupWithNewCard.setEventListeners();
@@ -144,16 +164,38 @@ profileAdd.addEventListener("click", () => {
 });
 
 // ВАЛИДАЦИЯ ФОРМ:
-// Проверка валидности формы информации юзера
+// Валидация форм: Проверка валидности формы информации юзера
 const formUserValidation = new FormValidator(formObject, formProfile);
 formUserValidation.enableValidation();
 
-// Проверка валидности добавления карточки
+// Валидация форм: Проверка валидности добавления карточки
 const formAddNewCardValidation = new FormValidator(formObject, popupAddForm);
 formAddNewCardValidation.enableValidation();
+
+// Валидация форм: Проверка формы аватара
+const formNewAvatarValidation = new FormValidator(formObject, formAvatar);
+formNewAvatarValidation.enableValidation();
 
 // Попап подтверждения
 const popupFormConfirm = new PopupConfirm({
   popupSelector: "popup_type_delete",
 });
 popupFormConfirm.setEventListeners();
+
+// Попап смены аватара
+const popupWithAvatar = new PopupWithForm({
+  popupSelector: "popup_type_avatar",
+  submit: (newAvatar) => {
+    api
+      .setNewAvatar(newAvatar.avatar)
+      .then((avatar) => {
+        userAvatar.src = avatar.avatar;
+      })
+      .catch((err) => console.log(`Oops: ${err}`));
+  },
+});
+popupWithAvatar.setEventListeners();
+
+userAvatar.addEventListener("click", () => {
+  popupWithAvatar.open();
+});

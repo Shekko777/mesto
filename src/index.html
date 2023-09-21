@@ -25,7 +25,7 @@
         <section class="profile">
             <div class="profile__wrapper">
                 <div class="profile__info">
-                    <img class="profile__avatar" src="<%=require('./images/profile/avatar.jpg')%>" alt="Аватар профиля">
+                    <img class="profile__avatar" src="#" alt="Аватар профиля">
                     <div class="profile__description">
                         <h1 class="profile__title"></h1>
                         <p class="profile__subtitle"></p>
@@ -131,9 +131,9 @@
             <form class="popup__form popup__form_type_avatar" action="#" novalidate>
                 <fieldset class="popup__fieldset">
                     <label class="popup__label">Обновить аватар</label>
-                    <input class="popup__input popup__input_add_avatar" name="link" value="" type="url"
+                    <input class="popup__input popup__input_add_avatar" name="avatar" value="" type="url"
                         placeholder="URL" autocomplete="off" required>
-                    <span class="popup__error" id="link-error"></span>
+                    <span class="popup__error" id="avatar-error"></span>
                 </fieldset>
                 <button class="popup__save-btn popup__save-btn_type_avatar" type="submit">Сохранить</button>
             </form>
