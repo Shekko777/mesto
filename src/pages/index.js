@@ -228,5 +228,6 @@ const popupWithAvatar = new PopupWithForm({
 popupWithAvatar.setEventListeners();
 
 userAvatarButton.addEventListener("click", () => {
+  formNewAvatarValidation.resetError();
   popupWithAvatar.open();
 });
