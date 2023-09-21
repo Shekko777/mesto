@@ -72,6 +72,11 @@ class Card {
     }
   }
 
+  // Устанавливает лайк в активное/деактивное состояние
+  setLikeIcon() {
+    this._likeIcon.classList.toggle("elements__like_active");
+  }
+
   // Навесить слушатели событий
   _setEventsListener = () => {
     this._element
@@ -82,7 +87,6 @@ class Card {
       .querySelector(".elements__like")
       .addEventListener("click", () => {
         this._handleLikeClick(this._id);
-        this._likeIcon.classList.toggle("elements__like_active");
       });
 
     this._element

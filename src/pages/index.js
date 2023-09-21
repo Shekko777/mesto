@@ -72,7 +72,9 @@ function createNewCard(item, ownerMeId) {
         popupFormConfirm.handleCallBackFunction(() => {
           api
             .deleteCard(id)
-            .then(() => {})
+            .then(() => {
+              cardItem.deleteCard();
+            })
             .catch((err) => console.log(`Ошибка удаления карточки: ${err}`));
         });
       },
@@ -82,6 +84,7 @@ function createNewCard(item, ownerMeId) {
             .unLikeCard(idCard)
             .then((dataCard) => {
               cardItem.handleClickLike(cardItem.checkedMyLike, dataCard);
+              cardItem.setLikeIcon();
             })
             .catch((err) =>
               console.log(`Удалить лайк не получилось, ошибка: ${err}`)
@@ -91,6 +94,7 @@ function createNewCard(item, ownerMeId) {
             .likeCard(idCard)
             .then((dataCard) => {
               cardItem.handleClickLike(cardItem.checkedMyLike, dataCard);
+              cardItem.setLikeIcon();
             })
             .catch((err) =>
               console.log(`Поставить лайк не получилось, ошибка: ${err}`)
