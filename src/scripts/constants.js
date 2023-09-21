@@ -1,5 +1,6 @@
 const templateCard = document.querySelector(".template-card").content; // Template для клонирования содержимого
 const userAvatar = document.querySelector(".profile__avatar");
+// const userAvatarButton = document.querySelector(".profile__avatar-button");
 
 // Popup изменения профиля
 const inputValueName = document.querySelector(".popup__input_place_title"); //Имя профиля

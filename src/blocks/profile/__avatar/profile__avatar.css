@@ -7,9 +7,5 @@
   border-radius: 50%;
   cursor: pointer;
   background-color: #fff;
-}
-
-.profile__avatar::before {
-  content: "";
-  position: absolute;
+  display: block;
 }
