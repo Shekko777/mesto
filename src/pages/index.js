@@ -11,6 +11,7 @@ import {
   formObject,
   formProfile,
   popupAddForm,
+  myPinCode,
   apiConfig,
   userAvatar,
   formAvatar,
@@ -24,6 +25,15 @@ import PopupWithImage from "../components/PopupWithImage";
 import UserInfo from "../components/UserInfo.js";
 import Api from "../components/Api";
 import PopupConfirm from "../components/ConfirmPopup";
+
+// Функция временной авторизации, пока не сделал полноценною с бекенда.
+function confirmation(propsFunction, cancelFunction) {
+  let yourPinCode = prompt("Введите пароль", "");
+  if (myPinCode == yourPinCode) {
+    propsFunction();
+  }
+  cancelFunction();
+}
 
 // Подключение API
 const api = new Api(apiConfig);
@@ -72,16 +82,23 @@ function createNewCard(item, ownerMeId) {
         popupFormConfirm.open();
         popupFormConfirm.handleCallBackFunction(() => {
           popupFormConfirm.preloadAnimation(true, "Удаление...");
-          api
-            .deleteCard(id)
-            .then(() => {
-              cardItem.deleteCard();
+          confirmation(
+            () => {
+              api
+                .deleteCard(id)
+                .then(() => {
+                  cardItem.deleteCard();
+                  popupFormConfirm.close();
+                })
+                .catch((err) => console.log(`Ошибка удаления карточки: ${err}`))
+                .finally(() => {
+                  popupFormConfirm.preloadAnimation(false, "");
+                });
+            },
+            () => {
               popupFormConfirm.close();
-            })
-            .catch((err) => console.log(`Ошибка удаления карточки: ${err}`))
-            .finally(() => {
-              popupFormConfirm.preloadAnimation(false, "");
-            });
+            }
+          );
         });
       },
       handleLikeClick: (idCard) => {
@@ -136,18 +153,25 @@ const popupEditProfile = new PopupWithForm({
   popupSelector: "popup_type_edit",
   submit: (data) => {
     popupEditProfile.preloadAnimation(true, "Сохранение...");
-    api
-      .setNewUserInfo(data.user, data.about)
-      .then(() => {
+    confirmation(
+      () => {
+        api
+          .setNewUserInfo(data.user, data.about)
+          .then(() => {
+            popupEditProfile.close();
+          })
+          .catch((err) =>
+            console.log(`Не удолось обновить инфо пользователя: ${err}`)
+          )
+          .finally(() => {
+            popupEditProfile.preloadAnimation(false, "");
+          });
+        newUserInfo.setUserInfo(data.user, data.about);
+      },
+      () => {
         popupEditProfile.close();
-      })
-      .catch((err) =>
-        console.log(`Не удолось обновить инфо пользователя: ${err}`)
-      )
-      .finally(() => {
-        popupEditProfile.preloadAnimation(false, "");
-      });
-    newUserInfo.setUserInfo(data.user, data.about);
+      }
+    );
   },
 });
 popupEditProfile.setEventListeners();
@@ -167,17 +191,24 @@ const popupWithNewCard = new PopupWithForm({
   popupSelector: "popup_type_add",
   submit: (item) => {
     popupWithNewCard.preloadAnimation(true, "Сохранение...");
-    api
-      .addNewCard(item.link, item.name)
-      .then((dataCard) => {
-        const cardElement = createNewCard(dataCard, userId);
-        createNewsCard.addItem(cardElement, false);
+    confirmation(
+      () => {
+        api
+          .addNewCard(item.link, item.name)
+          .then((dataCard) => {
+            const cardElement = createNewCard(dataCard, userId);
+            createNewsCard.addItem(cardElement, false);
+            popupWithNewCard.close();
+          })
+          .catch((err) => console.log(`Ошибка добавления карточки: ${err}`))
+          .finally(() => {
+            popupWithNewCard.preloadAnimation(false, "");
+          });
+      },
+      () => {
         popupWithNewCard.close();
-      })
-      .catch((err) => console.log(`Ошибка добавления карточки: ${err}`))
-      .finally(() => {
-        popupWithNewCard.preloadAnimation(false, "");
-      });
+      }
+    );
   },
 });
 popupWithNewCard.setEventListeners();
@@ -213,16 +244,23 @@ const popupWithAvatar = new PopupWithForm({
   popupSelector: "popup_type_avatar",
   submit: (newAvatar) => {
     popupWithAvatar.preloadAnimation(true, "Обновление...");
-    api
-      .setNewAvatar(newAvatar.avatar)
-      .then((avatar) => {
-        userAvatar.src = avatar.avatar;
+    confirmation(
+      () => {
+        api
+          .setNewAvatar(newAvatar.avatar)
+          .then((avatar) => {
+            userAvatar.src = avatar.avatar;
+            popupWithAvatar.close();
+          })
+          .catch((err) => console.log(`Oops: ${err}`))
+          .finally(() => {
+            popupWithAvatar.preloadAnimation(false, "");
+          });
+      },
+      () => {
         popupWithAvatar.close();
-      })
-      .catch((err) => console.log(`Oops: ${err}`))
-      .finally(() => {
-        popupWithAvatar.preloadAnimation(false, "");
-      });
+      }
+    );
   },
 });
 popupWithAvatar.setEventListeners();

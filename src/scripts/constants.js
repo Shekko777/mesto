@@ -1,5 +1,6 @@
 const templateCard = document.querySelector(".template-card").content; // Template для клонирования содержимого
 const userAvatar = document.querySelector(".profile__avatar");
+const myPinCode = "7756";
 const userAvatarButton = document.querySelector(".profile__avatar-button");
 
 // Popup изменения профиля
@@ -60,4 +61,5 @@ export {
   formAvatar,
   userAvatar,
   userAvatarButton,
+  myPinCode,
 };
