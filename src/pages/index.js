@@ -152,9 +152,9 @@ profileEditor.addEventListener("click", () => {
 const popupEditProfile = new PopupWithForm({
   popupSelector: "popup_type_edit",
   submit: (data) => {
-    popupEditProfile.preloadAnimation(true, "Сохранение...");
     confirmation(
       () => {
+        popupEditProfile.preloadAnimation(true, "Сохранение...");
         api
           .setNewUserInfo(data.user, data.about)
           .then(() => {
@@ -190,9 +190,9 @@ const createNewsCard = new Section(
 const popupWithNewCard = new PopupWithForm({
   popupSelector: "popup_type_add",
   submit: (item) => {
-    popupWithNewCard.preloadAnimation(true, "Сохранение...");
     confirmation(
       () => {
+        popupWithNewCard.preloadAnimation(true, "Сохранение...");
         api
           .addNewCard(item.link, item.name)
           .then((dataCard) => {
@@ -243,9 +243,9 @@ popupFormConfirm.setEventListeners();
 const popupWithAvatar = new PopupWithForm({
   popupSelector: "popup_type_avatar",
   submit: (newAvatar) => {
-    popupWithAvatar.preloadAnimation(true, "Обновление...");
     confirmation(
       () => {
+        popupWithAvatar.preloadAnimation(true, "Обновление...");
         api
           .setNewAvatar(newAvatar.avatar)
           .then((avatar) => {
